@@ -1,3 +1,5 @@
-function name (
-    
-)
+function name () {
+    console.log('ok');
+}
+name();
+     
