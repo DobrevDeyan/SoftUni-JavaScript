@@ -1,7 +1,4 @@
 function solve() {
-    
-    dsahdashbdasdbasdbabd
-
-    
+    console.log(1);
 }
 
