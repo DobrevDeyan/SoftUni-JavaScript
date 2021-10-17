@@ -1,5 +1,5 @@
-function name () {
-    console.log('ok');
+function sedDame () {
+    console.log('ok' + 1);
 }
-name();
+sedDame();
      
