@@ -12,7 +12,7 @@ function printEveryNthElement(arr, num) {
 // printEveryNthElement(['1', '2', '3', '4', '5'], 6);
 
 // ok will try this too
-
+dsad;
 function addRemoveElements(arr) {
   // let num = 0;
   // let newArr = [];
