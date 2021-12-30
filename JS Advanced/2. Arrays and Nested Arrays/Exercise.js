@@ -11,7 +11,7 @@ function printEveryNthElement(arr, num) {
 // printEveryNthElement(['dsa', 'asd', 'test', 'tset'], 2);
 // printEveryNthElement(['1', '2', '3', '4', '5'], 6);
 
-//test againdsd
+// last tests
 
 function addRemoveElements(arr) {
   // let num = 0;
