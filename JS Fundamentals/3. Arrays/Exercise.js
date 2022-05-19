@@ -21,7 +21,7 @@ function addSubtract(arr) {
 // addSubtract([5, 15, 23, 56, 35]);
 // addSubtract([-5, 11, 3, 0, 2]);
 
-
+TEST2
 
 function commonElements(arr1, arr2) {
     for (let i = 0; i < arr2.length; i++) {
