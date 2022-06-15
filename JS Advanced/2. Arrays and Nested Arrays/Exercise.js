@@ -5,11 +5,12 @@ function printArray(arr, str) {
 // printArray(['How about no?', 'I', 'will', 'not', 'do', 'it!'], '_');
 
 function printEveryNthElement(arr, num) {
-  return arr.filter((_, i) => i % Number(num) === 0);
+  // return arr.filter((_, i) => i % Number(num) === 0);
+  console.log(arr.filter((_, i) => i % Number(num) === 0));
 }
-// printEveryNthElement(['5', '20', '31', '4', '20'], 2);
-// printEveryNthElement(['dsa', 'asd', 'test', 'tset'], 2);
-// printEveryNthElement(['1', '2', '3', '4', '5'], 6);
+// printEveryNthElement(["5", "20", "31", "4", "20"], 2);
+// printEveryNthElement(["dsa", "asd", "test", "tset"], 2);
+// printEveryNthElement(["1", "2", "3", "4", "5"], 6);
 
 // last tests
 

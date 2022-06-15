@@ -11,7 +11,6 @@ function fruit(fruitType, weightGrams, priceKg) {
 }
 // fruit('orange', 2500, 1.80);
 // fruit('apple', 1563, 2.35);
-dadasdad;
 
 function greatestCommonDivisor(firstNum, secondNum) {
   // if (!secondNum){
