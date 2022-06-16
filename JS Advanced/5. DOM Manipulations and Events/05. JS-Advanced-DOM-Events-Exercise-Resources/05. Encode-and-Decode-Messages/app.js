@@ -1,32 +1,31 @@
 function encodeAndDecodeMessages() {
-    let encodeBtn = document.querySelectorAll('button')[0];
-    let dencodeBtn = document.querySelectorAll('button')[1];
-    let messageInput = document.querySelectorAll('textarea')[0];
-    let messageOutput = document.querySelectorAll('textarea')[1];
+  let encodeButton = document.querySelectorAll("button")[0];
+  let decodeButton = document.querySelectorAll("button")[1];
+  let messageInput = document.querySelectorAll("textarea")[0];
+  let messageOutput = document.querySelectorAll("textarea")[1];
 
-    encodeBtn.addEventListener('click', encodeMessages);
-    dencodeBtn.addEventListener('click', decodeMessages);
+  encodeButton.addEventListener("click", encodedMessage);
+  decodeButton.addEventListener("click", decodedMessage);
 
-    function encodeMessages() {
-        let theText = messageInput.value;
-        let encodedMessage = '';
-        for (let i = 0; i < theText.length; i++) {
-            encodedMessage += String.fromCharCode(ascii(`${theText[i]}`) + 1);
-        }
-        messageInput.value = '';
-        messageOutput.value = encodedMessage;
+  function encodedMessage() {
+    let text = messageInput.value;
+    let encodedMessage = "";
+    for (let i = 0; i < text.length; i++) {
+      encodedMessage += String.fromCharCode(ascii(`${text[i]}`) + 1);
     }
+    messageInput.value = "";
+    messageOutput.value = encodedMessage;
+  }
+  function decodedMessage() {
+    let text = messageOutput.value;
+    let decodedMessage = "";
 
-    function decodeMessages() {
-        let theText = messageOutput.value;
-        let decodedMessage = '';
-        for (let i = 0; i < theText.length; i++) {
-            decodedMessage += String.fromCharCode(ascii(`${theText[i]}`) - 1);
-        }
-        messageOutput.value = decodedMessage;
+    for (let i = 0; i < text.length; i++) {
+      decodedMessage += String.fromCharCode(ascii(`${text[i]}`) - 1);
     }
-
-    function ascii(a) {
-        return a.charCodeAt(0);
-    }
+    messageOutput.value = decodedMessage;
+  }
+  function ascii(a) {
+    return a.charCodeAt(0);
+  }
 }
