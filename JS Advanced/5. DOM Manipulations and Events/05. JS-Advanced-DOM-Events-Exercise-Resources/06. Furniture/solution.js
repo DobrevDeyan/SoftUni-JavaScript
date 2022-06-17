@@ -1,35 +1,11 @@
-function test() {
-  const table = document.querySelector("table.table tbody");
-  const [input, output] = Array.from(document.querySelectorAll("textarea"));
-  const [generateButton, buyButton] = Array.from(
-    document.querySelectorAll("button")
-  );
-
-  generateButton.addEventListener("click", generate);
-  buyButton.addEventListener("click", buy);
-
-  function generate() {
-    
-
-
-  }
-}
-
 function solve() {
-  /* # configure event listeners # */
-  // select all buttons
-  // first button -> table generation
-  // second button -> buy furniture
   const table = document.querySelector("table.table tbody");
   const [input, output] = Array.from(document.querySelectorAll("textarea"));
   const [generateBtn, buyBtn] = Array.from(document.querySelectorAll("button"));
   generateBtn.addEventListener("click", generate);
   buyBtn.addEventListener("click", buy);
 
-  /* # table generation # */
   function generate(e) {
-    // read input JSON and parse it
-    // for every array element, create table row
     const data = JSON.parse(input.value);
     for (let item of data) {
       const row = document.createElement("tr");
@@ -55,14 +31,7 @@ function solve() {
     return cell;
   }
 
-  /* # buy furniture # */
   function buy(e) {
-    // select all checkboxes
-    // filter only checked checkboxes
-    // repeat for every selected checkbox
-    // -- select parent row
-    // -- read item information
-    // display output
     const furniture = Array.from(
       document.querySelectorAll('input[type="checkbox"]:checked')
     )
@@ -82,8 +51,8 @@ function solve() {
         { names: [], total: 0, decFactor: 0 }
       );
     const result = `Bought furniture: ${furniture.names.join(", ")}
-  Total price: ${furniture.total.toFixed(2)}
-  Average decoration factor: ${furniture.decFactor}`;
+Total price: ${furniture.total.toFixed(2)}
+Average decoration factor: ${furniture.decFactor}`;
     output.value = result;
   }
 }
