@@ -6,6 +6,7 @@ function areaVolCalculator(area, volume, input) {
   }));
 
   // Second solution
+
   // const data = JSON.parse(input);
   // const resultArr = [];
   // // const resultArr = new Set();
@@ -148,7 +149,7 @@ function commandProcessor() {
   }
   function print() {
     console.log(text);
-    return result;
+    return result; // Result has to be returned in all nested functions in order to chain the methods for below second execution.
   }
 }
 const test = commandProcessor();
@@ -199,3 +200,36 @@ function listProcessor(input) {
 //   "print",
 // ]);
 // listProcessor(["add hello", "add again", "remove hello", "add again", "print"]);
+
+// 7. Cars
+function cars(input) {
+  const data = {};
+
+  const instructions = {
+    create: (name, inherits, parentName) =>
+      (data[name] =
+        inherits === "inherit" ? Object.create(data[parentName]) : {}),
+    set: (name, key, value) => (data[name][key] = value),
+    print: (name) => {
+      const entry = [];
+      for (const key in data[name]) {
+        entry.push(`${key}:${data[name][key]}`);
+      }
+      console.log(entry.join(", "));
+    },
+  };
+
+  input.forEach((x) => {
+    const [command, name, key, value] = x.split(" ");
+
+    instructions[command](name, key, value);
+  });
+}
+// cars([
+//   "create c1",
+//   "create c2 inherit c1",
+//   "set c1 color red",
+//   "set c2 model new",
+//   "print c1",
+//   "print c2",
+// ]);
