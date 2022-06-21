@@ -5,6 +5,7 @@ function areaVolCalculator(area, volume, input) {
     volume: volume.apply(item),
   }));
 
+  // Second solution
   // const data = JSON.parse(input);
   // const resultArr = [];
   // // const resultArr = new Set();
@@ -66,11 +67,10 @@ function currencyFormatter(separator, symbol, symbolFirst, value) {
 
 // 4. Filter Employees
 function filterEmployees(data, criteria) {
-  //parse input, if criteria all, print all
   const parsedInput = JSON.parse(data);
   const [sortingCriteria, value] = criteria.split("-");
 
-  //find (sort) all employees who correspond to the criteria and print them
+  // Second solution
   // let result = "";
   // let counter = 0;
 
@@ -179,19 +179,18 @@ function listProcessor(input) {
   // Second solution
   let innerCollection = [];
 
-  let obj = {
-    add: (str) => innerCollection.push(str),
-    remove: (str) =>
-      (innerCollection = innerCollection.filter((x) => x !== str)),
+  let commandsObject = {
+    add: (string) => innerCollection.push(string),
+    remove: (string) =>
+      (innerCollection = innerCollection.filter((x) => x !== string)),
     print: () => console.log(innerCollection.join(",")),
   };
 
-  input.forEach((x) => {
-    const [command, value] = x.split(" ");
-    obj[command](value);
+  input.forEach((item) => {
+    let [command, value] = item.split(" ");
+    commandsObject[command](value);
   });
 }
-
 // listProcessor([
 //   "add pesho",
 //   "add george",
