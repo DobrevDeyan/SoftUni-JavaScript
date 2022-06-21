@@ -1,3 +1,4 @@
+// 1. Area and Volume Calculator
 function areaVolCalculator(area, volume, input) {
   return JSON.parse(input).map((item) => ({
     area: area.apply(item),
@@ -15,7 +16,6 @@ function areaVolCalculator(area, volume, input) {
   // }
   // return resultArr;
 }
-
 function area() {
   return Math.abs(this.x * this.y);
 }
@@ -36,6 +36,7 @@ function volume() {
 //   )
 // );
 
+// 2. Add
 function add(n) {
   let number = n;
 
@@ -47,6 +48,7 @@ function add(n) {
 // console.log(addNum(2));
 // console.log(addNum(3));
 
+// 3. Currency Format
 function createFormatter(a, b, c, func) {
   return func.bind(undefined, a, b, c);
 }
@@ -62,6 +64,57 @@ function currencyFormatter(separator, symbol, symbolFirst, value) {
 }
 // console.log(dollarFormatter(5345));
 
+// 4. Filter Employees
+function filterEmployees(data, criteria) {
+  //parse input, if criteria all, print all
+  const parsedInput = JSON.parse(data);
+  const [sortingCriteria, value] = criteria.split("-");
+
+  //find (sort) all employees who correspond to the criteria and print them
+  // let result = "";
+  // let counter = 0;
+
+  // for (let person of parsedInput) {
+  //   if (person[sortingCriteria] === value) {
+  //     console.log(
+  //       `${counter}. ${person.first_name} ${person.last_name} - ${person.email}`
+  //     );
+  //     counter++;
+  //   }
+  // }
+
+  console.log(
+    parsedInput
+      .filter((x) => x[sortingCriteria] === value)
+      .map((x, i) => `${i}. ${x.first_name} ${x.last_name} - ${x.email}`)
+      .join("\n")
+  );
+}
+// filterEmployees(
+//   `[{
+//   "id": "1",
+//   "first_name": "Ardine",
+//   "last_name": "Bassam",
+//   "email": "abassam0@cnn.com",
+//   "gender": "Female"
+//   }, {
+//   "id": "2",
+//   "first_name": "Kizzee",
+//   "last_name": "Jost",
+//   "email": "kjost1@forbes.com",
+//   "gender": "Female"
+//   },
+//   {
+//   "id": "3",
+//   "first_name": "Evanne",
+//   "last_name": "Maldin",
+//   "email": "emaldin2@hostgator.com",
+//   "gender": "Male"
+//   }]`,
+//   "gender-Female"
+// );
+
+// 5. Command Processor
 function commandProcessor() {
   let text = "";
 
@@ -107,44 +160,43 @@ const test = commandProcessor();
 
 // test.append("111111").append("2222222").removeStart(5).removeEnd(3).print();
 
-function filterEmployees(data, criteria) {
-  console.log(data);
-  console.log(criteria);
+// 6. List Processor
+function listProcessor(input) {
+  // let innerCollection = [];
 
-  //parse input, if criteria all, print all
-  //find (sort) all employees who correspond to the criteria and print them
+  // for (let item of input) {
+  //   let [command, value] = item.split(" ");
+
+  //   if (command === "add") {
+  //     innerCollection.push(value);
+  //   } else if (command === "remove") {
+  //     innerCollection = innerCollection.filter((x) => x !== value);
+  //   } else if (command === "print") {
+  //     console.log(innerCollection.join(","));
+  //   }
+  // }
+
+  // Second solution
+  let innerCollection = [];
+
+  let obj = {
+    add: (str) => innerCollection.push(str),
+    remove: (str) =>
+      (innerCollection = innerCollection.filter((x) => x !== str)),
+    print: () => console.log(innerCollection.join(",")),
+  };
+
+  input.forEach((x) => {
+    const [command, value] = x.split(" ");
+    obj[command](value);
+  });
 }
 
-// function filterEmployees(string, reqCriteria) {
-//   const parsed = JSON.parse(string);
-//   const [criteria, value] = reqCriteria.split("-");
-
-//   return parsed
-//       .filter(x => x[criteria] === value)
-//       .map((x, i) => `${i}. ${x.first_name} ${x.last_name} - ${x.email}`)
-//       .join('\n');
-
-// }
-filterEmployees(
-  `[{
-  "id": "1",
-  "first_name": "Ardine",
-  "last_name": "Bassam",
-  "email": "abassam0@cnn.com",
-  "gender": "Female"
-  }, {
-  "id": "2",
-  "first_name": "Kizzee",
-  "last_name": "Jost",
-  "email": "kjost1@forbes.com",
-  "gender": "Female"
-  },
-  {
-  "id": "3",
-  "first_name": "Evanne",
-  "last_name": "Maldin",
-  "email": "emaldin2@hostgator.com",
-  "gender": "Male"
-  }]`,
-  "gender-Female"
-);
+// listProcessor([
+//   "add pesho",
+//   "add george",
+//   "add peter",
+//   "remove peter",
+//   "print",
+// ]);
+// listProcessor(["add hello", "add again", "remove hello", "add again", "print"]);
