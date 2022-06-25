@@ -112,5 +112,58 @@ function breakfastRobot() {
   };
 }
 let managerFunction = breakfastRobot();
-console.log(managerFunction("restock flavour 50")); // Success
-console.log(managerFunction("prepare lemonade 4")); // Error: not enough carbohydrate in stock
+// console.log(managerFunction("restock flavour 50")); // Success
+// console.log(managerFunction("prepare lemonade 4")); // Error: not enough carbohydrate in stock
+
+// 5. Functional Sum
+function functionalSum(number) {
+  let temp = 0;
+  function recursive(x) {
+    temp += x;
+
+    return recursive;
+  }
+  recursive.toString = () => temp;
+  return recursive(number);
+}
+// functionalSum(1); //1
+// functionalSum(1)(6)(-3); //4
+
+// 6. Monkey Patcher
+function monkeyPatcher(command) {
+  const actions = {
+    upvote: (x) => (x.upvotes += 1),
+    downvote: (x) => (x.downvotes += 1),
+    score: (x) => getScore(x),
+  };
+
+  function isObfuscable(votes) {
+    return votes > 50;
+  }
+
+  function getObfNum(u, d) {
+    return Math.ceil(0.25 * Math.max(u, d));
+  }
+
+  function calcRating(u, d) {
+    if (u + d < 10) return "new";
+    if (u > (u + d) * 0.66) return "hot";
+    if (u - d >= 0 && (u > 100 || d > 100)) return "controversial";
+    if (u - d < 0) return "unpopular";
+
+    return "new";
+  }
+
+  function getScore({ upvotes, downvotes }) {
+    const obfNum = isObfuscable(upvotes + downvotes)
+      ? getObfNum(upvotes, downvotes)
+      : 0;
+    const [rUps, rDowns] = [upvotes + obfNum, downvotes + obfNum];
+    const balance = rUps - rDowns;
+
+    return [rUps, rDowns, balance, calcRating(upvotes, downvotes)];
+  }
+
+  return actions[command](this);
+}
+monkeyPatcher.call({ upvotes: 1, downvotes: 2 }, "upvote");
