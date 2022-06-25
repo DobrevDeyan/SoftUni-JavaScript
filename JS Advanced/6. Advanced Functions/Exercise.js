@@ -166,4 +166,5 @@ function monkeyPatcher(command) {
 
   return actions[command](this);
 }
-monkeyPatcher.call({ upvotes: 1, downvotes: 2 }, "upvote");
+// monkeyPatcher.call({ upvotes: 1, downvotes: 2 }, "upvote");
+
