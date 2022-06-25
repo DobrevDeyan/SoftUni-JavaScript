@@ -1,3 +1,4 @@
+// 1. Sub Sum
 function subSum(arr, start, end) {
   if (Array.isArray(arr) === false) {
     return NaN;
@@ -22,3 +23,49 @@ function subSum(arr, start, end) {
 // console.log(subSum([10, "twenty", 30, 40], 0, 2));
 // console.log(subSum([], 1, 2));
 // console.log(subSum("text", 0, 2));
+
+// 2. Playing Cards
+function playingCards(face, suit) {
+  const faces = [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "J",
+    "Q",
+    "K",
+    "A",
+  ];
+  const suits = {
+    S: "\u2660",
+    H: "\u2665",
+    D: "\u2666",
+    C: "\u2663",
+  };
+
+  if (faces.includes(face) === false) {
+    throw new Error("Invalid face: " + face);
+  }
+  if (Object.keys(suits).includes(suit) === false) {
+    throw new Error("Invalid Suit: " + suit);
+  }
+
+  return {
+    face,
+    suit: suits[suit],
+    toString() {
+      return this.face + this.suit;
+    },
+  };
+}
+// const testOne = playingCards("A", "S");
+// console.log(testOne.toString());
+// const testTwo = playingCards("10", "H");
+// console.log(testTwo.toString());
+// const testThree = playingCards("9", "Y");
+// console.log(testThree.toString());
