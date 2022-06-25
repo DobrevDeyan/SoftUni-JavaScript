@@ -18,28 +18,99 @@ function argumentInfo(...arguments) {
       map.set(type, 0);
     }
     map.set(type, map.get(type) + 1);
-    // console.log(`${type}: ${argument}`);
+    console.log(`${type}: ${argument}`);
   }
-  console.log([...map.entries()]);
-  console.log([map.entries()]);
-  console.log(map.entries());
+  Array.from(map)
+    .sort((a, b) => b[1] - a[1])
+    .forEach((elem) => console.log(`${elem[0]} = ${elem[1]}`));
 }
-argumentInfo("cat", 42, function () {
-  console.log("Hello world!");
-});
+// argumentInfo("cat", 42, function () {
+//   console.log("Hello world!");
+// });
 
-// function argumentInfo() {
-//     let map = new Map();
+// 3. Fibonacci
+function fibonacci() {
+  let numbers = [0, 1];
 
-//     for (let arg of arguments) {
-//         let type = typeof(arg);
-//         if (!map.has(type)) {
-//             map.set(type, 0);
-//         }
-//         map.set(type, map.get(type)+1);
-//         console.log(`${type}: ${arg}`)
-//     }
+  return () => {
+    const result = numbers[0] + numbers[1];
+    numbers = [numbers[1], numbers[1] + numbers[0] || 1];
+    return result || 1;
+  };
+}
+// let fib = fibonacci();
+// console.log(fib()); // 1
+// console.log(fib()); // 1
+// console.log(fib()); // 2
+// console.log(fib()); // 3
+// console.log(fib()); // 5
+// console.log(fib()); // 8
+// console.log(fib()); // 13
 
-//     [...map.entries()].sort((a,b) => b[1] - a[1])
-//         .forEach((elem) => console.log(`${elem[0]} = ${elem[1]}`))
-// }
+// 4. Breakfast Robot
+function breakfastRobot() {
+  const ingredients = {
+    protein: 0,
+    carbohydrate: 0,
+    fat: 0,
+    flavour: 0,
+  };
+  const recipes = {
+    apple: parseRecipeData(0, 1, 0, 2),
+    lemonade: parseRecipeData(0, 10, 0, 20),
+    burger: parseRecipeData(0, 5, 7, 3),
+    eggs: parseRecipeData(5, 0, 1, 1),
+    turkey: parseRecipeData(10, 10, 10, 10),
+  };
+
+  function parseRecipeData(protein, carbohydrate, fat, flavour) {
+    return {
+      protein,
+      carbohydrate,
+      fat,
+      flavour,
+    };
+  }
+
+  function restock(ingr, x) {
+    ingredients[ingr] += x;
+    return "Success";
+  }
+
+  function prepare(required, quantity) {
+    const parsedRecipe = Object.entries(required).map((x) => [
+      x[0],
+      x[1] * quantity,
+    ]);
+
+    for (let i = 0; i < parsedRecipe.length; i++) {
+      const [name, amount] = parsedRecipe[i];
+      if (ingredients[name] - amount < 0) {
+        return `Error: not enough ${name} in stock`;
+      }
+    }
+
+    parsedRecipe.forEach(([name, amount]) => (ingredients[name] -= amount));
+    return "Success";
+  }
+
+  const report = () =>
+    Object.entries(ingredients)
+      .map(([key, value]) => `${key}=${value}`)
+      .join(" ");
+
+  const actions = {
+    prepare: (r, q) => prepare(recipes[r], q),
+    restock,
+    report,
+  };
+
+  return (s) => {
+    const [command, a, b] = s.split(" ").map((x) => (isNaN(x) ? x : Number(x)));
+
+    return actions[command](a, b);
+  };
+}
+let managerFunction = breakfastRobot();
+console.log(managerFunction("restock flavour 50")); // Success
+console.log(managerFunction("prepare lemonade 4")); // Error: not enough carbohydrate in stock
