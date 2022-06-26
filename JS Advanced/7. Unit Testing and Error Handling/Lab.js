@@ -72,6 +72,7 @@ function playingCards(face, suit) {
 
 // 3. Deck of Cards
 function deckOfCards(cards) {
+  //using previous global scope function from exercise 2
   const deck = [];
 
   for (let i = 0; i < cards.length; i++) {
