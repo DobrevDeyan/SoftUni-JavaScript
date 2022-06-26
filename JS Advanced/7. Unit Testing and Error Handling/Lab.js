@@ -74,20 +74,43 @@ function playingCards(face, suit) {
 function deckOfCards(cards) {
   //using previous global scope function from exercise 2 - playingCards()
 
-  let result = [];
+  // let result = [];
 
-  for (let card of cards) {
-    const face = card.slice(0, -1);
-    const suit = card.slice(-1);
-    try {
-      result.push(playingCards(face, suit));
-    } catch (error) {
-      console.log(`Invalid card: ` + card);
-      return;
-    }
+  // for (let card of cards) {
+  //   const face = card.slice(0, -1);
+  //   const suit = card.slice(-1);
+  //   try {
+  //     result.push(playingCards(face, suit));
+  //   } catch (error) {
+  //     console.log(`Invalid card: ` + card);
+  //     return;
+  //   }
+  // }
+
+  // console.log(result.join(" "));
+
+  // Second solution
+  try {
+    console.log(
+      cards
+        .map((card) => {
+          const face = card.slice(0, -1);
+          const suit = card.slice(-1);
+          try {
+            return playingCards(face, suit);
+          } catch (error) {
+            throw new Error("Invalid card: " + card);
+          }
+        })
+        .join(" ")
+    );
+  } catch (error) {
+    console.log(error.message);
   }
-
-  console.log(result.join(" "));
 }
-// deckOfCards(["AS", "10D", "KH", "2C"]);
-// deckOfCards(["5S", "3D", "QD", "1C"]);
+deckOfCards(["AS", "10D", "KH", "2C"]);
+deckOfCards(["5S", "3D", "QD", "1C"]);
+
+// 4. Sum of Numbers
+// function sumOfNumbers() {}
+// sumOfNumbers();
