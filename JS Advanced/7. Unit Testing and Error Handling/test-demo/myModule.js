@@ -5,5 +5,5 @@ function product(a, b) {
   return a * b;
 }
 
-// module.exports = { sum, product };
-module.exports = sum;
+module.exports = { sum, product };
+// module.exports = sum;

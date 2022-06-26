@@ -110,7 +110,3 @@ function deckOfCards(cards) {
 }
 deckOfCards(["AS", "10D", "KH", "2C"]);
 deckOfCards(["5S", "3D", "QD", "1C"]);
-
-// 4. Sum of Numbers
-// function sumOfNumbers() {}
-// sumOfNumbers();
