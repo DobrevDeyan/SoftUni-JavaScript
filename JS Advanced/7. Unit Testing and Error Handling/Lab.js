@@ -72,26 +72,22 @@ function playingCards(face, suit) {
 
 // 3. Deck of Cards
 function deckOfCards(cards) {
-  //using previous global scope function from exercise 2
-  const deck = [];
+  //using previous global scope function from exercise 2 - playingCards()
 
-  for (let i = 0; i < cards.length; i++) {
-    const cardData = cards[i].split("");
-    const [face, suit] = [
-      cardData.slice(0, -1).join(""),
-      cardData[cardData.length - 1],
-    ];
+  let result = [];
 
+  for (let card of cards) {
+    const face = card.slice(0, -1);
+    const suit = card.slice(-1);
     try {
-      deck.push(playingCards(face, suit).toString());
-    } catch (e) {
-      console.log(`Invalid card: ${cards[i]}`);
+      result.push(playingCards(face, suit));
+    } catch (error) {
+      console.log(`Invalid card: ` + card);
       return;
     }
   }
 
-  // return deck.join(" ");
-  console.log(deck.join(" "));
+  console.log(result.join(" "));
 }
 // deckOfCards(["AS", "10D", "KH", "2C"]);
 // deckOfCards(["5S", "3D", "QD", "1C"]);
