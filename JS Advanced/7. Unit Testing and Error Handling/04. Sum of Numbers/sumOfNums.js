@@ -2,8 +2,8 @@ function sum(arr) {
   let sum = 0;
   for (let num of arr) {
     sum += Number(num);
-    return sum;
   }
+  return sum;
 }
 
-module.export = { sum };
+module.exports = { sum };
