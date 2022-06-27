@@ -1,5 +1,6 @@
 const expect = require("chai");
-const { createCalculator } = require("./rgbToHex");
+
+const { createCalculator } = require("./addSubstract");
 
 describe("Calculator", () => {
   // it might have a state so we null it before testing
@@ -8,6 +9,10 @@ describe("Calculator", () => {
   // this runs before each block
   beforeEach(() => {
     instance = createCalculator();
+  });
+
+  it("starts empty", () => {
+    expect(instance.get()).to.equal(0);
   });
 
   it("has all methods", () => {
