@@ -19,6 +19,7 @@ function requestValidator(object) {
   }
 
   // Second solution
+
   //     const props = {
   //       method: {
   //         isInvalid: () =>
@@ -37,10 +38,7 @@ function requestValidator(object) {
   //     };
 
   //     for (let prop of Object.keys(props)) {
-  //       const name =
-  //         prop === "uri"
-  //           ? prop.toUpperCase()
-  //           : prop.charAt(0).toUpperCase() + prop.slice(1);
+  //       const name = prop === "uri" ? prop.toUpperCase(): prop.charAt(0).toUpperCase() + prop.slice(1);
   //       if (obj[prop] === undefined || props[prop].isInvalid()) {
   //         throw new Error(`Invalid request header: Invalid ${name}`);
   //       }
@@ -48,9 +46,6 @@ function requestValidator(object) {
 
   return object;
 }
-
-module.exports = { requestValidator };
-
 // console.log(
 //   requestValidator({
 //     method: "GET",
@@ -76,3 +71,49 @@ module.exports = { requestValidator };
 // );
 
 // 2. Even or odd
+
+function isOddOrEven(string) {
+  if (typeof string !== "string") {
+    return undefined;
+  }
+  if (string.length % 2 === 0) {
+    return "even";
+  }
+  return "odd";
+}
+
+// 3 . Char Lookup
+function lookupChar(string, index) {
+  if (typeof string !== "string" || !Number.isInteger(index)) {
+    return undefined;
+  }
+  if (string.length <= index || index < 0) {
+    return "Incorrect index";
+  }
+  return string.charAt(index);
+}
+
+// 4 . math Enforcer
+
+let mathEnforcer = {
+  addFive: function (num) {
+    if (typeof num !== "number") {
+      return undefined;
+    }
+    return num + 5;
+  },
+  subtractTen: function (num) {
+    if (typeof num !== "number") {
+      return undefined;
+    }
+    return num - 10;
+  },
+  sum: function (num1, num2) {
+    if (typeof num1 !== "number" || typeof num2 !== "number") {
+      return undefined;
+    }
+    return num1 + num2;
+  },
+};
+
+module.exports = { isOddOrEven, lookupChar, mathEnforcer };
