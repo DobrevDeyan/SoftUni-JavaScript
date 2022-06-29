@@ -51,10 +51,4 @@ describe("test lookupChar(str, index) function", function () {
   });
 });
 
-describe("test mathEnforcer function ", () => {
-  
-
-
-
-
-});
+describe("test mathEnforcer function ", () => {});
