@@ -5,13 +5,14 @@ function loadRepos() {
 
   fetch(url)
     .then((res) => {
+      console.log(res);
       if (res.ok == false) {
-        throw new Error(`${res.status} ${res.statusText}`);
+        throw new Error(`${res.status}`);
       }
       return res.json();
     })
     .then(handleResponse)
-    .catch((error) => console.log(error));
+    .catch(handleError);
 
   function handleResponse(data) {
     // list.innerHTML = "";
@@ -22,5 +23,9 @@ function loadRepos() {
       liElement.innerHTML = `<a href="${repo.html_url}"> ${repo.full_name} </a>`;
       list.appendChild(liElement);
     }
+  }
+  function handleError(error) {
+    list.querySelectorAll("*").forEach((n) => n.remove());
+    list.textContent = `${error.message}`;
   }
 }
