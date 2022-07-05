@@ -2,33 +2,24 @@ function solve() {
   const arriveButton = document.getElementById("arrive");
   const departButton = document.getElementById("depart");
   const informationBox = document.getElementById("info");
-  const url = `http://localhost:3030/jsonstore/bus/schedule/${depot}`;
+  let stop = {
+    next: "depot",
+  };
 
   async function depart() {
-    try {
-      const firstBusStop = await fetch url;
-      if (firstBusStop.ok !== 200) {
-        // return firstBusStop.json();
-        console.log(firstBusStop.json());
-      } else {
-        throw new Error("Request failed");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    const url = `http://localhost:3030/jsonstore/bus/schedule/${stop.next}`;
 
-    arriveButton.disabled = true;
-    departButton.disabled = false;
+    const response = await fetch(url);
+    stop = await response.json(); // generating each subsequent stop via new request
 
-    informationBox.innerHTML = `Next stop ${2}`;
+    informationBox.textContent = `Next stop ${stop.name}`;
+    arriveButton.disabled = false;
+    departButton.disabled = true;
   }
 
   function arrive() {
-    // try {
-    // } catch (error) {}
-
-    arriveButton.disabled = false;
-    departButton.disabled = true;
+    arriveButton.disabled = true;
+    departButton.disabled = false;
   }
 
   return {
@@ -36,5 +27,4 @@ function solve() {
     arrive,
   };
 }
-
 let result = solve();
