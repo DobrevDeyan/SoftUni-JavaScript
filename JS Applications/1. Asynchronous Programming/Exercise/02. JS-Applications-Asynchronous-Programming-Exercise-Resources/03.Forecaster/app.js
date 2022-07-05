@@ -4,30 +4,29 @@ function attachEvents() {
 }
 attachEvents();
 
-const symbols = {
-  Sunny: "&#x2600;",
-  "Partly sunny": "&#x26C5;",
-  Overcast: "&#x2601;",
-  Rain: "&#x2614;",
-  Degrees: "&#176;",
-};
-
 async function getLocation() {
   clearSections();
 
-  const locationInput = document.getElementById("location").value;
-  const getLocationInfo = await fetch(
-    "http://localhost:3030/jsonstore/forecaster/locations"
-  );
-  const locationData = await getLocationInfo.json();
-  locationData.map((location) => {
-    const { code, name } = location;
-    if (name === locationInput) {
-      currentWeatherForecast(code);
-      threeDayWeatherForecast(code);
+  try {
+    const locationInput = document.getElementById("location").value;
+    const getLocationInfo = await fetch(
+      "http://localhost:3030/jsonstore/forecaster/locations"
+    );
+    if (getLocationInfo.status !== 200) {
+      throw new Error("Stop ID not found!");
     }
-  });
-  document.getElementById("forecast").style.display = "";
+    const locationData = await getLocationInfo.json();
+    locationData.map((location) => {
+      const { code, name } = location;
+      if (name === locationInput) {
+        currentWeatherForecast(code);
+        threeDayWeatherForecast(code);
+      }
+    });
+    document.getElementById("forecast").style.display = "";
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 async function currentWeatherForecast(code) {
@@ -76,6 +75,14 @@ const clearSections = () => {
   document.getElementById(
     "upcoming"
   ).innerHTML = `<div class="label">Three-day forecast</div>`;
+};
+
+const symbols = {
+  Sunny: "&#x2600;",
+  "Partly sunny": "&#x26C5;",
+  Overcast: "&#x2601;",
+  Rain: "&#x2614;",
+  Degrees: "&#176;",
 };
 
 // const getData = async (uri) => {
