@@ -13,6 +13,8 @@ const symbols = {
 };
 
 async function getLocation() {
+  clearSections();
+
   const locationInput = document.getElementById("location").value;
   const getLocationInfo = await fetch(
     "http://localhost:3030/jsonstore/forecaster/locations"
@@ -34,11 +36,13 @@ async function currentWeatherForecast(code) {
   );
   const data = await response.json();
 
-  let { condition, high, low } = data;
+  let { forecast, _ } = data;
+  let { condition, high, low } = forecast;
   const wrapper = document.createElement("span");
   wrapper.className = "upcoming";
 
-  wrapper.innerHTML = `<span class="symbol">${symbols[condition]}</span><span class="forecast-data">${high}&#176;/${low}&#176;</span><span class="forecast-data">${condition}</span>`;
+  wrapper.innerHTML = `<span class="symbol">${symbols[condition]}</span><span class="forecast-data">${high}&#176;/${low}&#176;
+  </span><span class="forecast-data">${condition}</span>`;
 
   document.getElementById("current").appendChild(wrapper);
 }
@@ -64,6 +68,15 @@ async function threeDayWeatherForecast(code) {
     document.getElementById("upcoming").appendChild(wrapper);
   }
 }
+
+const clearSections = () => {
+  document.getElementById(
+    "current"
+  ).innerHTML = `<div class="label">Current conditions</div>`;
+  document.getElementById(
+    "upcoming"
+  ).innerHTML = `<div class="label">Three-day forecast</div>`;
+};
 
 // const getData = async (uri) => {
 // 	const data = await fetch(`http://localhost:3030/jsonstore/forecaster/${uri}`)
