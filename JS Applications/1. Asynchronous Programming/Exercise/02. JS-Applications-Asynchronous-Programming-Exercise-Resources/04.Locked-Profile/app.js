@@ -56,6 +56,6 @@ async function lockedProfile() {
       mainContent.appendChild(profileGenerator(person, index + 1));
     });
   } catch (error) {
-    console.log(error.message + "           " + error.status);
+    console.log(error.message, error.status);
   }
 }
