@@ -7,6 +7,7 @@ function solve() {
   };
 
   async function depart() {
+    departButton.disabled = true;
     const url = `http://localhost:3030/jsonstore/bus/schedule/${stop.next}`;
 
     const response = await fetch(url);
@@ -14,10 +15,11 @@ function solve() {
 
     informationBox.textContent = `Next stop ${stop.name}`;
     arriveButton.disabled = false;
-    departButton.disabled = true;
   }
 
   function arrive() {
+    informationBox.textContent = `Arriving at ${stop.name}`;
+
     arriveButton.disabled = true;
     departButton.disabled = false;
   }
