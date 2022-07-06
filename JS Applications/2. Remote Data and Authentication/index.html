@@ -52,6 +52,17 @@
         const result = await response.json();
         return result;
       }
+      async function deleteData(id) {
+        const url = `http://localhost:3030/jsonstore/phonebook/` + id;
+
+        const options = {
+          method: "delete",
+        };
+
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result;
+      }
     </script>
   </body>
 </html>
