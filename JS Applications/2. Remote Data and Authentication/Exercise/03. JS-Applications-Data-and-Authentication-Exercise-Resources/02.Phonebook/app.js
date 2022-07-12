@@ -23,6 +23,8 @@ async function viewContacts() {
 
     phoneBook.innerHTML = "";
 
+    // phoneBook.replaceChildren(...Object.values(data).map(createElement));
+
     for (let contact of Object.values(data)) {
       const liElement = document.createElement("li");
       const deleteButton = document.createElement("button");
@@ -62,7 +64,7 @@ async function createContact() {
   await viewContacts();
 }
 async function deleteContact(event) {
-  const url = `http://localhost:3030/jsonstore/phonebook/${event.target.id}`;
+  const url = `http://localhost:3030/jsonstore/phonebook/${event.target.id}`; // event.target.dataset.id usable
   const response = await fetch(url, {
     method: "delete",
   });
