@@ -1,6 +1,9 @@
 const tableBody = document.querySelector("tbody")
+const createForm = document.getElementById("createForm")
+const editForm = document.getElementById("editForm")
 document.getElementById("loadBooks").addEventListener("click", loadBooks)
-document.getElementById("createForm").addEventListener("submit", onCreate)
+createForm.addEventListener("submit", onCreate)
+editForm.addEventListener("submit", onEditSubmit)
 tableBody.addEventListener("click", onTableClick)
 
 loadBooks()
@@ -10,6 +13,7 @@ function onTableClick(event) {
   if (event.target.className === "delete") {
     onDelete(event.target)
   } else if (event.target.className === "edit") {
+    onEdit(event.target)
   }
 }
 
@@ -17,6 +21,35 @@ async function onDelete(button) {
   const id = button.parentElement.dataset.id
   await deleteBook(id)
   button.parentElement.parentElement.remove()
+}
+
+async function onEditSubmit(event) {
+  event.preventDefault()
+  const formData = new FormData(event.target)
+
+  const id = formData.get("id")
+  const author = formData.get("author")
+  const title = formData.get("title")
+
+  const result = await updateBook(id, { author, title })
+
+  event.target.reset()
+  createForm.style.display = "block"
+  editForm.style.display = "none  "
+
+  loadBooks()
+}
+
+async function onEdit(button) {
+  const id = button.parentElement.dataset.id
+  const book = await loadBook(id)
+
+  createForm.style.display = "none"
+  editForm.style.display = "block"
+
+  editForm.querySelector('[name="id"]').value = id
+  editForm.querySelector('[name="author"]').value = book.author
+  editForm.querySelector('[name="title"]').value = book.title
 }
 
 async function onCreate(event) {
@@ -36,9 +69,15 @@ async function loadBooks() {
   const books = await request(
     "http://localhost:3030/jsonstore/collections/books"
   )
-
   const result = Object.entries(books).map(([id, book]) => createRow(id, book))
   tableBody.replaceChildren(...result)
+}
+
+async function loadBook(id) {
+  const book = await request(
+    `http://localhost:3030/jsonstore/collections/books/` + id
+  )
+  return book
 }
 
 function createRow(id, book) {
@@ -59,9 +98,6 @@ async function createBook(book) {
     "http://localhost:3030/jsonstore/collections/books",
     {
       method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
       body: JSON.stringify(book),
     }
   )
@@ -73,9 +109,6 @@ async function updateBook(id, book) {
     `http://localhost:3030/jsonstore/collections/books/` + id,
     {
       method: "put",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
       body: JSON.stringify(book),
     }
   )
