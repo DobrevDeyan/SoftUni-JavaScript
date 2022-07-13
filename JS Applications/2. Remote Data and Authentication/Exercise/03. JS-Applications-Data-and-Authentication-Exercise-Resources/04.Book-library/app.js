@@ -1,48 +1,48 @@
-const tableBody = document.querySelector("tbody");
-document.getElementById("loadBooks").addEventListener("click", loadBooks);
-document.getElementById("createForm").addEventListener("submit", onCreate);
-tableBody.addEventListener("click", onTableClick);
+const tableBody = document.querySelector("tbody")
+document.getElementById("loadBooks").addEventListener("click", loadBooks)
+document.getElementById("createForm").addEventListener("submit", onCreate)
+tableBody.addEventListener("click", onTableClick)
 
-loadBooks();
+loadBooks()
 ////
 
 function onTableClick(event) {
   if (event.target.className === "delete") {
-    onDelete(event.target);
+    onDelete(event.target)
   } else if (event.target.className === "edit") {
   }
 }
 
 async function onDelete(button) {
-  const id = button.parentElement.dataset.id;
-  await deleteBook(id);
-  button.parentElement.parentElement.remove();
+  const id = button.parentElement.dataset.id
+  await deleteBook(id)
+  button.parentElement.parentElement.remove()
 }
 
 async function onCreate(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
+  event.preventDefault()
+  const formData = new FormData(event.target)
 
-  const author = formData.get("author");
-  const title = formData.get("title");
+  const author = formData.get("author")
+  const title = formData.get("title")
 
-  const result = await createBook({ author, title });
-  tableBody.appendChild(createRow(result._id, result));
+  const result = await createBook({ author, title })
+  tableBody.appendChild(createRow(result._id, result))
 
-  event.target.reset();
+  event.target.reset()
 }
 
 async function loadBooks() {
   const books = await request(
     "http://localhost:3030/jsonstore/collections/books"
-  );
+  )
 
-  const result = Object.entries(books).map(([id, book]) => createRow(id, book));
-  tableBody.replaceChildren(...result);
+  const result = Object.entries(books).map(([id, book]) => createRow(id, book))
+  tableBody.replaceChildren(...result)
 }
 
 function createRow(id, book) {
-  const row = document.createElement("tr");
+  const row = document.createElement("tr")
   row.innerHTML = `
           <td>${book.title}</td>
           <td>${book.author}</td>
@@ -50,8 +50,8 @@ function createRow(id, book) {
             <button class="edit">Edit</button>
             <button class="delete">Delete</button>
           </td>
-  `;
-  return row;
+  `
+  return row
 }
 
 async function createBook(book) {
@@ -64,8 +64,8 @@ async function createBook(book) {
       //   },
       body: JSON.stringify(book),
     }
-  );
-  return result;
+  )
+  return result
 }
 
 async function updateBook(id, book) {
@@ -78,8 +78,8 @@ async function updateBook(id, book) {
       //   },
       body: JSON.stringify(book),
     }
-  );
-  return result;
+  )
+  return result
 }
 
 async function deleteBook(id) {
@@ -88,8 +88,8 @@ async function deleteBook(id) {
     {
       method: "delete",
     }
-  );
-  return result;
+  )
+  return result
 }
 
 async function request(url, options) {
@@ -98,14 +98,14 @@ async function request(url, options) {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
   }
-  const response = await fetch(url, options);
+  const response = await fetch(url, options)
   if (response.ok !== true) {
-    const error = response.json();
-    alert(error.message);
-    throw new Error(error.message);
+    const error = response.json()
+    alert(error.message)
+    throw new Error(error.message)
   }
-  const data = await response.json();
-  return data;
+  const data = await response.json()
+  return data
 }
