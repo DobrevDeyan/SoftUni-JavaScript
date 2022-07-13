@@ -1,1 +1,1 @@
-console.log('TODO:// Implement Register functionality');
+console.log("TODO:// Implement Register functionality")
