@@ -35,6 +35,7 @@ async function onRegister(event) {
         throw new Error(error.message)
       }
       const data = await response.json()
+
       const userData = {
         email: data.email,
         id: data._id,

@@ -1,3 +1,4 @@
+// console.log(sessionStorage)
 window.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.getElementById("logout")
   logoutButton.addEventListener("click", onLogout)

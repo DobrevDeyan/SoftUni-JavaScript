@@ -50,7 +50,7 @@ async function createCatch(event) {
     loadData()
     event.target.reset()
   } catch (error) {
-    alert(error.message)
+    alert(error.status)
   }
 }
 
