@@ -16,6 +16,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
 async function createCatch(event) {
   event.preventDefault()
+  if (!userData) {
+    return
+    window.location = "login.html"
+  }
+
   const formData = new FormData(event.target)
 
   const data = [...formData.entries()]
@@ -29,7 +34,29 @@ async function createCatch(event) {
         Object.assign(accumulator, { [key]: value }),
       {}
     )
-  console.log(data)
+
+  try {
+    if (Object.values(data).some((x) => x === "")) {
+      throw new Error("All fields are required")
+    }
+    const response = await fetch("http://localhost:3030/data/catches", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Authorization": userData.token,
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.ok !== true) {
+      const error = await response.json()
+      throw new Error(error.message)
+    }
+
+    loadData()
+    event.target.reset()
+  } catch (error) {
+    alert(error.message)
+  }
 }
 
 async function loadData() {
