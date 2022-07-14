@@ -6,6 +6,8 @@ window.addEventListener("DOMContentLoaded", () => {
   if (userData !== null) {
     document.getElementById("guest").style.display = "none"
     document.querySelector("#addForm .add").disabled = false
+    const userName = document.getElementsByTagName("span")[0]
+    userName.textContent = userData.email
   } else {
     document.getElementById("user").style.display = "none"
   }
@@ -17,8 +19,8 @@ window.addEventListener("DOMContentLoaded", () => {
 async function createCatch(event) {
   event.preventDefault()
   if (!userData) {
-    return
     window.location = "login.html"
+    return
   }
 
   const formData = new FormData(event.target)

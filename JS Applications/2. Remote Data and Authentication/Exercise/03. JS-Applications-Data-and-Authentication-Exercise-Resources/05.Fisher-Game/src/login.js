@@ -7,8 +7,8 @@ async function onLogin(event) {
   event.preventDefault()
   const formData = new FormData(event.target)
 
-  const email = formData.get("email")
-  const password = formData.get("password")
+  const email = formData.get("email").trim()
+  const password = formData.get("password").trim()
 
   try {
     const url = `http://localhost:3030/users/login`
@@ -32,7 +32,9 @@ async function onLogin(event) {
     }
 
     sessionStorage.setItem("userData", JSON.stringify(userData))
-    window.location = "index.html"
+    const userName = document.getElementsByTagName("span")[0]
+    userName.textContent = userData.email
+    // window.location = "index.html"
   } catch (error) {
     alert(error.message)
   }
