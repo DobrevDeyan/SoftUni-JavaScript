@@ -3,20 +3,21 @@ window.addEventListener("DOMContentLoaded", () => {
   logoutButton.addEventListener("click", onLogout)
 })
 async function onLogout() {
-  const accessToken = JSON.parse(sessionStorage.getItem("userData"))
-
   try {
-    // const response = await fetch("http://localhost:3030/users/logout", {
-    //   method: "get",
-    //   headers: { "X-Authorization": accessToken.accessToken },
-    // })
+    const response = await fetch("http://localhost:3030/users/logout", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Authorization": userData.token,
+      },
+    })
 
-    // if (response.ok !== 200) {
-    //   const error = await response.json()
-    //   return alert(error.message)
-    // }
+    if (response.ok !== true) {
+      const error = await response.json()
+      return alert(error.message)
+    }
 
-    // const data = await response.json()
+    const data = await response.json()
 
     sessionStorage.clear()
     window.location = "index.html"

@@ -25,17 +25,10 @@ async function createCatch(event) {
 
   const formData = new FormData(event.target)
 
-  const data = [...formData.entries()]
-    // .reduce(
-    //   (accumulator, current) =>
-    //     Object.assign(accumulator, { [current[0]]: current[1] }),
-    //   {}
-    // )
-    .reduce(
-      (accumulator, [key, value]) =>
-        Object.assign(accumulator, { [key]: value }),
-      {}
-    )
+  const data = [...formData.entries()].reduce(
+    (accumulator, [key, value]) => Object.assign(accumulator, { [key]: value }),
+    {}
+  )
 
   try {
     if (Object.values(data).some((x) => x === "")) {
