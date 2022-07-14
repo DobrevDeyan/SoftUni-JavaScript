@@ -1,6 +1,12 @@
+let userData = null
+
 window.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form#register")
   form.addEventListener("submit", onRegister)
+
+  if (!userData) {
+    document.getElementById("user").style.display = "none"
+  }
 })
 
 async function onRegister(event) {

@@ -1,6 +1,12 @@
+let userData = null
+
 window.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form#login")
   form.addEventListener("submit", onLogin)
+
+  if (!userData) {
+    document.getElementById("user").style.display = "none"
+  }
 })
 
 async function onLogin(event) {
@@ -25,6 +31,7 @@ async function onLogin(event) {
     }
 
     const data = await response.json()
+
     const userData = {
       email: data.email,
       id: data._id,
@@ -32,9 +39,10 @@ async function onLogin(event) {
     }
 
     sessionStorage.setItem("userData", JSON.stringify(userData))
+    window.location = "index.html"
+
     const userName = document.getElementsByTagName("span")[0]
     userName.textContent = userData.email
-    // window.location = "index.html"
   } catch (error) {
     alert(error.message)
   }
