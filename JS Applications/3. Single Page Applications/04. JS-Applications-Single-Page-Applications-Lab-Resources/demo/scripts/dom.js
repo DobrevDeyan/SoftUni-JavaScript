@@ -1,8 +1,11 @@
+const main = document.querySelector("main")
+
 export function showSection(section) {
-  document
-    .querySelectorAll("section")
-    .forEach((s) => (s.style.display = "none"))
-  document.getElementById(section).style.display = ""
+  main.replaceChildren(section)
+  // document
+  //   .querySelectorAll("section")
+  //   .forEach((s) => (s.style.display = "none"))
+  // document.getElementById(section).style.display = ""
 }
 
 export function element(type, attributes, ...content) {

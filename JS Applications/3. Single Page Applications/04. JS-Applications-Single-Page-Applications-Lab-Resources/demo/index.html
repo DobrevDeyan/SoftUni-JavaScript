@@ -8,43 +8,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="" />
     <script src="scripts/app.js" type="module"></script>
+    <style>
+      #sections {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <nav>
       <a href="index.html" id="homeButton">Home</a>
       <a href="catalog.html" id="catalogButton">Catalog</a>
       <a href="about.html" id="aboutButton">About</a>
+      <a href="login.html" id="loginButton">Login</a>
+      <a href="register.html" id="registerButton">Register</a>
+      <a href="javascript:void(0)" id="logoutButton">Logout</a>
     </nav>
-    <main>
+    <main></main>
+    <div id="sections">
       <h1>SPA Demo</h1>
-
       <section id="homeSection">
         <h1>Home page</h1>
         <p>Welcome to our site</p>
       </section>
-
       <section id="loginSection">
         <h1>Login</h1>
+        <form>
+          <label
+            >Email:
+            <input type="text" name="email" placeholder="Enter email address"
+          /></label>
+          <label
+            >Email:
+            <input type="text" name="password" placeholder="Enter password"
+          /></label>
+          <label>Email: <input type="submit" /></label>
+        </form>
       </section>
-
       <section id="registerSection">
         <h1>Register</h1>
       </section>
-
       <section id="catalogSection">
         <h1>Catalogue</h1>
-        <ul>
-          <li>Product 1</li>
-          <li>Product 2</li>
-          <li>Product 3</li>
-        </ul>
+        <ul></ul>
       </section>
-
       <section id="aboutSection">
         <h1>About us</h1>
         <p>Contact info</p>
         <p>Phone</p>
       </section>
-    </main>
+    </div>
   </body>
 </html>
