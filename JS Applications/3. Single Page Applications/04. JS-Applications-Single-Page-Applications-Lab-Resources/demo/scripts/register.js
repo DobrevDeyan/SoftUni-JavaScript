@@ -1,14 +1,14 @@
 import { showSection } from "./dom.js"
 import { showHomePage } from "./home.js"
 
-const loginSection = document.getElementById("loginSection")
-loginSection.remove()
+const registerSection = document.getElementById("registerSection")
+registerSection.remove()
 
-const form = loginSection.querySelector("form")
+const form = registerSection.querySelector("form")
 form.addEventListener("submit", onSubmit)
 
-export function showLoginSection() {
-  showSection(loginSection)
+export function showRegisterSection() {
+  showSection(registerSection)
 }
 
 async function onSubmit(event) {
@@ -17,9 +17,15 @@ async function onSubmit(event) {
 
   const email = formData.get("email").trim()
   const password = formData.get("password").trim()
+  const repass = formData.get("repass").trim()
+
+  if (password != repass) {
+    alert("Passwords don't match.")
+    return
+  }
 
   try {
-    const response = await fetch("http://localhost:3030/users/login", {
+    const response = await fetch("http://localhost:3030/users/register", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

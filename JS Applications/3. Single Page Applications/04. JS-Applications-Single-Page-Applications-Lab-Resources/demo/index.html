@@ -22,9 +22,12 @@
       <a href="index.html" id="homeButton">Home</a>
       <a href="catalog.html" id="catalogButton">Catalog</a>
       <a href="about.html" id="aboutButton">About</a>
-      <a href="login.html" id="loginButton">Login</a>
-      <a href="register.html" id="registerButton">Register</a>
-      <a href="javascript:void(0)" id="logoutButton">Logout</a>
+      <div id="guestNav">  
+        <a href="login.html" id="loginButton">Login</a>
+        <a href="register.html" id="registerButton">Register</a></div>
+      <div id="userNav">
+        <a href="javascript:void(0)" id="logoutButton">Logout</a>
+      </div>
     </nav>
     <main></main>
     <div id="sections">
@@ -44,11 +47,26 @@
             >Password:
             <input type="password" name="password" placeholder="Enter password" value="123456"
           /></label>
-           <input type="submit" /></label>
+           <input type="submit" value="Login"/></label>
         </form>
       </section>
       <section id="registerSection">
         <h1>Register</h1>
+        <form>
+          <label
+            >Email:
+            <input type="email" name="email" placeholder="Enter email address" value="peter@abv.bg"
+          /></label>
+          <label
+            >Password:
+            <input type="password" name="password" placeholder="Enter password" value="123456"
+          /></label>
+          <label
+            >Repeat:
+            <input type="password" name="repass" placeholder="Repeat password" value="123456"
+          /></label>
+           <input type="submit" value="Register"/></label>
+        </form>
       </section>
       <section id="catalogSection">
         <h1>Catalogue</h1>
