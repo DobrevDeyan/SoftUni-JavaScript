@@ -1,5 +1,8 @@
 import { showSection } from "./dom.js"
 import { showHomePage } from "./home.js"
+import { updateNavigation } from "./app.js"
+
+updateNavigation()
 
 const registerSection = document.getElementById("registerSection")
 registerSection.remove()
@@ -45,6 +48,7 @@ async function onSubmit(event) {
     }
 
     sessionStorage.setItem("userData", JSON.stringify(userData))
+    updateNavigation()
     showHomePage()
   } catch (err) {
     alert(err.message)

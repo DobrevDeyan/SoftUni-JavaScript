@@ -13,7 +13,22 @@ export function showCatalogPage() {
 async function loadMovies() {
   ul.replaceChildren(element("p", {}, "Loading..."))
 
-  const response = await fetch("http://localhost:3030/data/movies")
+  const options = { method: "get", headers: {} }
+  const userData = JSON.parse(sessionStorage.getItem("userData"))
+
+  if (userData != null) {
+    options.headers["X-Authorization"] = userData.token
+  }
+
+  const response = await fetch("http://localhost:3030/data/movies", options)
+
+  if (response.status == 403) {
+    sessionStorage.removeItem("userData")
+    alert("Error 403")
+    updateNavigation()
+    showLoginSection()
+  }
+
   const movies = await response.json()
 
   ul.replaceChildren(...movies.map(createMovie))
