@@ -1,6 +1,6 @@
 import { showHomeSection } from "./home.js"
-import { showDetailsSection } from "./details.js"
-import { showAddMovieSection } from "./create.js"
+import { showLoginSection } from "./login.js"
+import { showRegisterSection } from "./register.js"
 
 // create placeholder module for every view
 // configure the test navigation
@@ -8,7 +8,20 @@ import { showAddMovieSection } from "./create.js"
 // - create async function for request
 // - implement DOM logic
 
+const views = {
+  homeLink: showHomeSection,
+  loginLink: showLoginSection,
+  registerLink: showRegisterSection,
+}
 
+document.querySelector("nav").addEventListener("click", (event) => {
+  //   if (event.target.tagName === "A") {}
+  const view = views[event.target.id]
+  if (typeof view === "function") {
+    event.preventDefault()
+    view()
+  }
+})
 
 // Order of views:
 // - catalog (home view)
@@ -19,8 +32,5 @@ import { showAddMovieSection } from "./create.js"
 // - edit
 // - delete
 
+// Start application in home view (catalog)
 showHomeSection()
-
-window.showHomeSection = showHomeSection
-window.showDetailsSection = showDetailsSection
-window.showAddMovieSection = showAddMovieSection
