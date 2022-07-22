@@ -4,6 +4,6 @@ import { showView } from "./dom.js"
 const section = document.getElementById("movie-details")
 section.remove()
 // display logic
-export function showDetailsSection() {
+export function showDetailsSection(movieId) {
   showView(section)
 }
