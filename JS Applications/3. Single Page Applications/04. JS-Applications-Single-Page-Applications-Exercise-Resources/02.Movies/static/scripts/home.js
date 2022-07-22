@@ -29,6 +29,7 @@ catalog.addEventListener("click", (event) => {
   if (target.tagName === "A") {
     const id = target.dataset.id
     showDetailsSection(id)
+    console.log(id)
   }
 })
 section.remove()

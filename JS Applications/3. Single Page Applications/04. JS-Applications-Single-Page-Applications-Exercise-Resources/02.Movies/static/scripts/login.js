@@ -2,7 +2,6 @@ import { showView } from "./dom.js"
 import { showHomeSection } from "./home.js"
 import { updateUserName } from "./app.js"
 // - find relevant section and detach from DOM (saved in memory)
-
 const section = document.getElementById("form-login")
 const form = section.querySelector("form")
 form.addEventListener("submit", onLogin)

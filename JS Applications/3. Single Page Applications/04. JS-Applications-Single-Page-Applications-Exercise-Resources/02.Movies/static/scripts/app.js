@@ -14,6 +14,7 @@ const views = {
   registerLink: showRegisterSection,
 }
 
+document.getElementById("logoutButton").addEventListener("click", onLogout)
 nav.addEventListener("click", (event) => {
   //   if (event.target.tagName === "A") {}
   const view = views[event.target.id]
@@ -22,15 +23,6 @@ nav.addEventListener("click", (event) => {
     view()
   }
 })
-
-// Order of views:
-// - catalog (home view)
-// - login/register
-// - create
-// - details
-// - likes
-// - edit
-// - delete
 
 // Start application in home view (catalog)
 updateUserName()
@@ -52,4 +44,20 @@ export function updateUserName() {
     const guest = [...nav.querySelectorAll(".guest")]
     guest.forEach((link) => (link.style.display = "block"))
   }
+}
+
+async function onLogout(event) {
+  event.preventDefault()
+  event.stopImmediatePropagation()
+
+  const { token } = JSON.parse(sessionStorage.getItem("userData"))
+  await fetch("http://localhost:3030/users/logout", {
+    // without stated method the request defaults to GET method
+    headers: {
+      "X-Authorization": token,
+    },
+  })
+  sessionStorage.removeItem("userData")
+  updateUserName()
+  showLoginSection()
 }
