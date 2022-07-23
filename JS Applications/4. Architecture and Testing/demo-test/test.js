@@ -11,11 +11,10 @@
 
 const { chromium } = require("playwright-chromium")
 const { expect } = require("chai")
-const { before } = require("mocha")
 
-let browser, page
+let browser, page // Declare reusable variables
 
-describe("E2E tests", function () {
+describe("E2E tests", async function () {
   before(async () => {
     browser = await chromium.launch()
   })
@@ -27,5 +26,10 @@ describe("E2E tests", function () {
   })
   afterEach(async () => {
     await page.close()
+  })
+
+  it("initial load", async () => {
+    await page.goto("http://localhost:5500")
+    await page.screenshot({ path: "page.png" })
   })
 })
