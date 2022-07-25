@@ -29,7 +29,9 @@ describe("E2E tests", async function () {
   })
 
   it("initial load", async () => {
-    await page.goto("http://localhost:5500")
+    await page.goto(
+      "http://127.0.0.1:5500/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Lab-Resources/01.%20Accordion/index.html"
+    )
     await page.screenshot({ path: "page.png" })
   })
 })
