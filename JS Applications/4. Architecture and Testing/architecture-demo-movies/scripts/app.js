@@ -1,3 +1,4 @@
+import * as api from "../api/data.js"
 import { showCatalogPage } from "./catalog.js"
 import { showHomePage, showAboutPage } from "./home.js"
 import { showLoginSection } from "./login.js"
@@ -39,18 +40,7 @@ export function updateNavigation() {
 
 async function onLogout(event) {
   event.stopImmediatePropagation()
-  const { token } = JSON.parse(sessionStorage.getItem("userData"))
-
-  const response = await fetch("http://localhost:3030/users/logout", {
-    "X-Authorization": token,
-  })
-
-  if (response.status == 403) {
-    sessionStorage.removeItem("userData")
-    alert("You are not authorized to load movies")
-  }
-
-  sessionStorage.removeItem("userData")
+  await api.logout()
   updateNavigation()
   showHomePage()
 }

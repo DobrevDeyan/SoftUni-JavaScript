@@ -1,3 +1,4 @@
+import * as api from "../api/data.js"
 import { showSection } from "./dom.js"
 import { showHomePage } from "./home.js"
 import { updateNavigation } from "./app.js"
@@ -19,30 +20,8 @@ async function onSubmit(event) {
   const email = formData.get("email").trim()
   const password = formData.get("password").trim()
 
-  try {
-    const response = await fetch("http://localhost:3030/users/login", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-    if (response.ok !== true) {
-      const error = await response.json()
-      throw new Error(error.message)
-    }
-    const data = await response.json()
+  await api.login(email, password)
 
-    const userData = {
-      username: data.username,
-      id: data._id,
-      token: data.accessToken,
-    }
-
-    sessionStorage.setItem("userData", JSON.stringify(userData))
-    updateNavigation()
-    showHomePage()
-  } catch (err) {
-    alert(err.message)
-  }
+  updateNavigation()
+  showHomePage()
 }
