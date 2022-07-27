@@ -1,32 +1,53 @@
 import * as api from "../api/data.js"
-import { showCatalogPage } from "./catalog.js"
-import { showHomePage, showAboutPage } from "./home.js"
-import { showLoginSection } from "./login.js"
-import { showRegisterSection } from "./register.js"
+import { showCatalogPage } from "../views/catalog.js"
+import { showHomePage, showAboutPage } from "../views/./home.js"
+import { showLoginSection } from "../views/./login.js"
+import { showRegisterSection } from "../views/register.js"
+import { showSection } from "./dom.js"
 
 document.getElementById("logoutButton").addEventListener("click", onLogout)
 document.querySelector("nav").addEventListener("click", onNavigate)
 
-const sections = {
-  homeButton: showHomePage,
-  catalogButton: showCatalogPage,
-  aboutButton: showAboutPage,
-  loginButton: showLoginSection,
-  registerButton: showRegisterSection,
+const views = {
+  home: showHomePage,
+  catalog: showCatalogPage,
+  about: showAboutPage,
+  login: showLoginSection,
+  register: showRegisterSection,
+}
+const links = {
+  homeButton: "home",
+  catalogButton: "catalog",
+  aboutButton: "about",
+  loginButton: "login",
+  registerButton: "register",
 }
 updateNavigation()
-showHomePage()
+
+const context = {
+  updateNavigation,
+  goTo,
+  showSection,
+}
+
+//Start application
+goTo("home")
 
 function onNavigate(event) {
   if (event.target.tagName === "A") {
-    const view = sections[event.target.id]
-    if (typeof view == "function") {
+    const name = links[event.target.id]
+    if (name) {
       event.preventDefault()
-      view()
+      goTo(name)
     }
   }
 }
-
+function goTo(name, ...params) {
+  const view = views[name]
+  if (typeof view === "function") {
+    view(context, ...params)
+  }
+}
 export function updateNavigation() {
   const userData = JSON.parse(sessionStorage.getItem("userData"))
   if (userData !== null) {
@@ -37,10 +58,9 @@ export function updateNavigation() {
     document.getElementById("guestNav").style.display = "inline-block"
   }
 }
-
 async function onLogout(event) {
   event.stopImmediatePropagation()
   await api.logout()
   updateNavigation()
-  showHomePage()
+  goTo("home")
 }

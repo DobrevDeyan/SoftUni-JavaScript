@@ -1,18 +1,14 @@
-import * as api from "../api/data.js"
-import { showSection } from "./dom.js"
-import { showHomePage } from "./home.js"
-import { updateNavigation } from "./app.js"
-
-updateNavigation()
+import { register } from "../api/data.js"
 
 const registerSection = document.getElementById("registerSection")
 registerSection.remove()
-
 const form = registerSection.querySelector("form")
 form.addEventListener("submit", onSubmit)
+let context = null
 
-export function showRegisterSection() {
-  showSection(registerSection)
+export function showRegisterSection(contextTarget) {
+  context = contextTarget
+  context.showSection(registerSection)
 }
 
 async function onSubmit(event) {
@@ -28,7 +24,7 @@ async function onSubmit(event) {
     return
   }
 
-  await api.register(email, password)
-  updateNavigation()
-  showHomePage()
+  await register(email, password)
+  context.updateNavigation()
+  context.goTo("home")
 }

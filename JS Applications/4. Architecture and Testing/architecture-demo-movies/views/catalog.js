@@ -1,12 +1,12 @@
-import { showSection, element } from "./dom.js"
+import { element } from "../scripts/dom.js"
 import { getAllMovies } from "../api/data.js"
 
 const catalogSection = document.getElementById("catalogSection")
 const ul = document.querySelector("#catalogSection ul")
 catalogSection.remove()
 
-export function showCatalogPage() {
-  showSection(catalogSection)
+export function showCatalogPage(context) {
+  context.showSection(catalogSection)
   loadMovies()
 }
 async function loadMovies() {

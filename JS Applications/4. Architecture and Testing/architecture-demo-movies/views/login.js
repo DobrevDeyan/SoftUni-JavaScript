@@ -1,18 +1,15 @@
 import * as api from "../api/data.js"
-import { showSection } from "./dom.js"
-import { showHomePage } from "./home.js"
-import { updateNavigation } from "./app.js"
 
 const loginSection = document.getElementById("loginSection")
 loginSection.remove()
-
 const form = loginSection.querySelector("form")
 form.addEventListener("submit", onSubmit)
+let context = null
 
-export function showLoginSection() {
-  showSection(loginSection)
+export function showLoginSection(contextTarget) {
+  context = contextTarget
+  context.showSection(loginSection)
 }
-
 async function onSubmit(event) {
   event.preventDefault()
   const formData = new FormData(form)
@@ -21,7 +18,6 @@ async function onSubmit(event) {
   const password = formData.get("password").trim()
 
   await api.login(email, password)
-
-  updateNavigation()
-  showHomePage()
+  context.updateNavigation()
+  context.goTo("home")
 }
