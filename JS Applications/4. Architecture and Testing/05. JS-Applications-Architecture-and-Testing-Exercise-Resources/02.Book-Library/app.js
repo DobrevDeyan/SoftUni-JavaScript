@@ -92,7 +92,7 @@ function handleTableClick(event) {
     document.getElementById("createForm").style.display = "none"
     document.getElementById("editForm").style.display = "block"
     const bookId = event.target.parentNode.parentNode.dataset.id
-    loadBookForEditting(bookId)
+    loadBookForEditing(bookId)
   } else if (event.target.className == "deleteBtn") {
     const confirmed = confirm("Are you sure you want to delete this book?")
     if (confirmed) {
