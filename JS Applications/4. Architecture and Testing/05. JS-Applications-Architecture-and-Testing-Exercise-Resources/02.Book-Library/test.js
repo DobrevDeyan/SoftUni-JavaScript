@@ -22,6 +22,12 @@ describe("tests", async function () {
   })
 
   it("works", async () => {
-    expect(1).to.equal(1)
+    // await new Promise((res) => setTimeout(res, 2000)) // simulate waiting in que with a promise
+    // expect(1).to.equal(1)
+
+    await page.goto(
+      "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library/index.html"
+    )
+    await page.screenshot({ path: "page.png" })
   })
 })
