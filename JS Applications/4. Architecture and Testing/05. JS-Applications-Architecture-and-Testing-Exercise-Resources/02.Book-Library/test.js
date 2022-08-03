@@ -25,13 +25,14 @@ function json(data) {
 
 describe("tests", async function () {
   // we don't use arrow func since this (context) has to be set on the place of execution (not creation)
-  this.timeout(50000)
+  this.timeout(6000)
+  //   this.timeout(6000)
 
   let page, browser
 
   before(async () => {
     browser = await chromium.launch()
-    // browser = await chromium.launch({ headless: false, slowMo: 2000 })
+    // browser = await chromium.launch({ headless: false, slowMo: 500 })
   })
   after(async () => {
     await browser.close()
@@ -74,6 +75,115 @@ describe("tests", async function () {
     await page.goto(
       "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library"
     )
-    
+    await page.fill('form#createForm >> input[name="title"]', "Title")
+    await page.fill('form#createForm >> input[name="author"]', "Author")
+
+    const [request] = await Promise.all([
+      page.waitForRequest((req) => req.method() == "POST"),
+      page.click("form#createForm >> text=Submit"),
+    ])
+    const data = JSON.parse(request.postData())
+    expect(data.title).to.equal("Title")
+    expect(data.author).to.equal("Author")
+
+    // await page.waitForTimeout(60000)
+  })
+
+  //THIRD TEST
+  //   it.only("can edit book", async () => {
+  //     await page.goto(
+  //       "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library"
+  //     )
+  //     await page.value('form#editForm >> input[name="title"]', "Title")
+  //     await page.value('form#editForm >> input[name="author"]', "Author")
+
+  //     const [request] = await Promise.all([
+  //       page.waitForRequest((req) => req.method() == "POST"),
+  //       page.click("form#editForm >> text=Submit"),
+  //     ])
+  //     const data = JSON.parse(request.postData())
+  //     // expect(data.title).to.equal("Title")
+  //     // expect(data.author).to.equal("Author")
+
+  //     // await page.waitForTimeout(60000)
+  //   })
+  it(`loads correct form`, async () => {
+    // await page.route("**/jsonstore/collections/books*", (request) =>
+    //   request.fulfill(json(mockData))
+    // )
+    await page.goto(
+      "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library"
+    )
+    await page.click("#loadBooks")
+    await page.click(".editBtn:nth-child(1)")
+
+    const editFormDisplay = await page.$eval(
+      "#editForm",
+      (el) => el.style.display
+    )
+    const createFormDisplay = await page.$eval(
+      "#createForm",
+      (el) => el.style.display
+    )
+
+    expect(editFormDisplay).to.eq("block")
+    expect(createFormDisplay).to.eq("none")
+  })
+  it(`loads correct information`, async () => {
+    // await page.route("**/jsonstore/collections/books*", (request) => {
+    //   request.fulfill(json(mockData))
+    // })
+    await page.goto(
+      "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library"
+    )
+    await page.route("**/jsonstore/collections/books/*", (request) => {
+      request.fulfill(json({ title: "title", author: "author" }))
+    })
+    await page.click("#loadBooks")
+    await page.click(".editBtn:nth-child(1)")
+
+    const [response] = await Promise.all([
+      page.waitForResponse((r) =>
+        r.request().url().includes("/jsonstore/collections/books/")
+      ),
+      page.click('text="Save"'),
+    ])
+    const data = JSON.parse(await response.body())
+
+    expect(data.title).to.eq("title")
+    expect(data.author).to.eq("author")
+  })
+  it(`sends correct request`, async () => {
+    // await page.route("**/jsonstore/collections/books*", (request) => {
+    //   request.fulfill(json(mockData))
+    // })
+    await page.goto(
+      "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library"
+    )
+    await page.route("**/jsonstore/collections/books/*", (request) =>
+      request.fulfill(
+        json({
+          title: "title",
+          author: "author",
+        })
+      )
+    )
+
+    await page.click("#loadBooks")
+    await page.click(".editBtn:nth-child(1)")
+
+    const [response] = await Promise.all([
+      page.waitForResponse(
+        (r) =>
+          r.request().url().includes("/jsonstore/collections/books/") &&
+          r.request().method() === "PUT"
+      ),
+      page.click('text="Save"'),
+    ])
+    const data = JSON.parse(await response.body())
+    expect(data).to.deep.eq({
+      title: "title",
+      author: "author",
+    })
   })
 })
