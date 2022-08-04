@@ -1,3 +1,5 @@
+import { login } from "../api/data.js"
+
 const section = document.getElementById("loginPage")
 section.remove()
 const form = section.querySelector("form")
@@ -18,4 +20,3 @@ async function onSubmit(event) {
   ctx.goTo("home")
   ctx.updateNav()
 }
- 

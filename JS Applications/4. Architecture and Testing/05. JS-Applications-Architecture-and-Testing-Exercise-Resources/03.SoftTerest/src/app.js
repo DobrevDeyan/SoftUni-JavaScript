@@ -28,8 +28,11 @@ nav.addEventListener("click", onNavigate)
 const ctx = {
   goTo,
   showSection,
+  updateNav,
 }
 
+// INITIATE APPLICATION
+updateNav()
 goTo("home")
 
 function onNavigate(event) {
@@ -49,9 +52,12 @@ function updateNav() {
   const userData = JSON.parse(sessionStorage.getItem("userData"))
   const userLinks = [...nav.querySelectorAll(".user")]
   const guestLinks = [...nav.querySelectorAll(".guest")]
+
   if (userData !== null) {
     userLinks.forEach((l) => (l.style.display = "block"))
     guestLinks.forEach((l) => (l.style.display = "none"))
-    // console.log(typeof nav.querySelectorAll(".user"))
+  } else {
+    userLinks.forEach((l) => (l.style.display = "none"))
+    guestLinks.forEach((l) => (l.style.display = "block"))
   }
 }
