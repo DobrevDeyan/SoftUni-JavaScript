@@ -90,23 +90,7 @@ describe("tests", async function () {
   })
 
   //THIRD TEST
-  //   it.only("can edit book", async () => {
-  //     await page.goto(
-  //       "http://127.0.0.1:5500/JS%20Applications/4.%20Architecture%20and%20Testing/05.%20JS-Applications-Architecture-and-Testing-Exercise-Resources/02.Book-Library"
-  //     )
-  //     await page.value('form#editForm >> input[name="title"]', "Title")
-  //     await page.value('form#editForm >> input[name="author"]', "Author")
 
-  //     const [request] = await Promise.all([
-  //       page.waitForRequest((req) => req.method() == "POST"),
-  //       page.click("form#editForm >> text=Submit"),
-  //     ])
-  //     const data = JSON.parse(request.postData())
-  //     // expect(data.title).to.equal("Title")
-  //     // expect(data.author).to.equal("Author")
-
-  //     // await page.waitForTimeout(60000)
-  //   })
   it(`loads correct form`, async () => {
     // await page.route("**/jsonstore/collections/books*", (request) =>
     //   request.fulfill(json(mockData))
