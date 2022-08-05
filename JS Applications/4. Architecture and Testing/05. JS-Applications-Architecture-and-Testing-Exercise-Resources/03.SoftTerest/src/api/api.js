@@ -25,6 +25,7 @@ async function request(url, options) {
 function createOptions(method = "get", data) {
   const options = {
     method,
+    mode: "cors",
     headers: {},
   }
   if (data !== undefined) {

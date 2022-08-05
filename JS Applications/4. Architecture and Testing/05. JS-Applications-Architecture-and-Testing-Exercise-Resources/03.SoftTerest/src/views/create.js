@@ -1,5 +1,3 @@
-import { element } from "../dom.js"
-
 const section = document.getElementById("createPage")
 section.remove()
 
