@@ -1,10 +1,11 @@
-import { getByID } from "../api/data.js"
+import { getByID, deleteById } from "../api/data.js"
 
 const section = document.getElementById("detailsPage")
 section.remove()
+let ctx = null
 
-export async function showDetailsPage(ctx, id) {
-  console.log(id)
+export async function showDetailsPage(ctxTarget, id) {
+  ctx = ctxTarget
   ctx.showSection(section)
   loadIdea(id)
 }
@@ -25,13 +26,29 @@ function createIdeaDiv(idea) {
       element("p", { className: "idea-description" }, idea.description)
     )
   )
-  fragment.appendChild(
-    element(
-      "div",
-      { className: "text-center" },
-      element("a", { className: "btn detb", href: "" }, "Delete")
-    )
-  )
 
+  const userData = JSON.parse(sessionStorage.getItem("userData"))
+  if (userData && userData.id == idea.id) {
+    fragment.appendChild(
+      element(
+        "div",
+        { className: "text-center" },
+        element(
+          "a",
+          { className: "btn detb", href: "", onClick: onDelete },
+          "Delete"
+        )
+      )
+    )
+  }
   return fragment
+
+  function onDelete(event) {
+    event.preventDefault()
+    const confirmed = confirm("Are you sure you want to delete this")
+    if(confirmed) {
+      await deleteById(idea._id)
+      ctx.goTo("catalog")
+    }
+  }
 }

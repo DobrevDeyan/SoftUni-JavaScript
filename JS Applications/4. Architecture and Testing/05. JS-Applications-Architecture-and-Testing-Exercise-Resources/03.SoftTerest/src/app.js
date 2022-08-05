@@ -1,4 +1,5 @@
 import { showSection } from "./dom.js"
+import { logout } from "./api/data.js"
 import { showHomePage } from "./views/home.js"
 import { showCatalogPage } from "./views/catalog.js"
 import { showCreatePage } from "./views/create.js"
@@ -25,6 +26,16 @@ const views = {
 
 const nav = document.querySelector("nav")
 nav.addEventListener("click", onNavigate)
+
+document
+  .getElementById("logoutLink")
+  .addEventListener("click", async (event) => {
+    event.preventDefault()
+    await logout()
+    updateNav()
+    goTo("home")
+  })
+
 const ctx = {
   goTo,
   showSection,
