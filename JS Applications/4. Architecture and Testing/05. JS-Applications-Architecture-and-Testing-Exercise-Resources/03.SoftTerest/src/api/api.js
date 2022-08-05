@@ -11,7 +11,7 @@ async function request(url, options) {
       const error = await response.json()
       throw new Error(error.message)
     }
-    if (response.status == 204) {
+    if ((response.status = 204)) {
       return response
     } else {
       return response.json()
@@ -25,7 +25,6 @@ async function request(url, options) {
 function createOptions(method = "get", data) {
   const options = {
     method,
-    mode: "cors",
     headers: {},
   }
   if (data !== undefined) {

@@ -5,6 +5,7 @@ section.remove()
 let ctx = null
 
 export async function showDetailsPage(ctxTarget, id) {
+  console.log(id)
   ctx = ctxTarget
   ctx.showSection(section)
   loadIdea(id)
@@ -43,11 +44,11 @@ function createIdeaDiv(idea) {
   }
   return fragment
 
-  function onDelete(event) {
+  async function onDelete(event) {
     event.preventDefault()
     const confirmed = confirm("Are you sure you want to delete this")
-    if(confirmed) {
-      await deleteById(idea._id)
+    if (confirmed) {
+      await deleteById(idea.id)
       ctx.goTo("catalog")
     }
   }
