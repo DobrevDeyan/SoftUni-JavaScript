@@ -1,7 +1,7 @@
-export function renderTemplate(template, data) {
+export function renderTemplate(templateAsString, data) {
   const pattern = /{{(.+?)}}/gm // global, multiline
 
-  return template.replace(pattern, (match, propName) => {
+  return templateAsString.replace(pattern, (match, propName) => {
     return data[propName]
   })
 }

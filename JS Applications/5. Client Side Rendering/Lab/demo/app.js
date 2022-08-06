@@ -4,7 +4,7 @@ async function start() {
   const data = await (await fetch("./data.json")).json()
   const template = await (await fetch("./article.html")).text()
 
-  const result = renderTemplate(template, data[0])
-  console.log(result)
+  const main = document.querySelector("main")
+  main.innerHTML = data.map((item) => renderTemplate(template, item)).join("")
 }
 start()
