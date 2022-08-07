@@ -21,9 +21,20 @@ async function start() {
   const renderButton = document.querySelector("#render-button")
   renderButton.addEventListener("click", onRender)
 
+  document.getElementById("change-button").addEventListener("click", onChange)
+
   function onRender() {
-    data[0].author += "1"
+    data[1].author += "1"
     const result = data.map(articleTemplate)
     render(result, content)
+  }
+  function onChange() {
+    data.shift()
+    data.unshift({
+      title: "First Article 21321",
+      content: "dsadasda",
+      author: "John Smith",
+    })
+    onRender()
   }
 }
