@@ -12,11 +12,18 @@ const articleTemplate = (data) => html`
     </div>
   </article>
 `
+start()
+
 async function start() {
   const data = await (await fetch("./data.json")).json()
   const main = document.querySelector("main")
+  const content = document.querySelector("#content")
+  const renderButton = document.querySelector("#render-button")
+  renderButton.addEventListener("click", onRender)
 
-  const result = data.map(articleTemplate)
-  render(result, main)
+  function onRender() {
+    data[0].author += "1"
+    const result = data.map(articleTemplate)
+    render(result, content)
+  }
 }
-start()
