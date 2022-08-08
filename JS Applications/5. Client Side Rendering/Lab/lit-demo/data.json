@@ -2,16 +2,19 @@
   {
     "title": "First Article",
     "content": "dsadasda",
-    "author": "John Smith"
+    "author": "John Smith",
+    "color": "red"
   },
   {
     "title": "Second Article",
     "content": "dsadasxaxaxaxaxda",
-    "author": "John Smith"
+    "author": "John Smith",
+    "color": "blue"
   },
   {
     "title": "Third Article",
     "content": "dsaxaaxaxaxaxaxaxaxaxxadasda",
-    "author": "John Smith"
+    "author": "John Smith",
+    "color": "green"
   }
 ]

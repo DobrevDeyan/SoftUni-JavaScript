@@ -11,3 +11,12 @@ article {
 article footer {
   color: #999;
 }
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+.blue {
+  background-color: blue;
+}

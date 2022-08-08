@@ -1,17 +1,20 @@
 import { html, render } from "https://unpkg.com/lit-html?module"
 
-const articleTemplate = (data) => html`
+const articleTemplate = (data, onSubmit) => html`
   <article>
     <h3>${data.title}</h3>
-    <div class="content-body">
+    <div class="content-body ${data.color}">
       <p>${data.content}</p>
     </div>
     <footer>Author: ${data.author}</footer>
     <div class="comments">
-      <p>Some comments</p>
+      <form @submit="${onSubmit}">
+        <textarea></textarea>
+      </form>
     </div>
   </article>
 `
+
 start()
 
 async function start() {
