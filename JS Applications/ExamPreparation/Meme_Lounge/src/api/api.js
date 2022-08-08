@@ -9,17 +9,22 @@ async function request(url, options) {
       const error = await response.json()
       throw new Error(error.message)
     }
-    if (response.status === 204) {
+    // if (response.status === 204) {
+    //   return response
+    // } else {
+    //   return response.json()
+    // }
+    // if (response.status === 403) {} // Check
+    try {
+      return await response.json()
+    } catch (err) {
       return response
-    } else {
-      return response.json()
     }
   } catch (err) {
     alert(err.message)
     throw err
   }
 }
-
 function createOptions(method = "get", data) {
   const options = {
     method,
@@ -37,7 +42,6 @@ function createOptions(method = "get", data) {
 
   return options
 }
-
 export async function get(url) {
   return request(url, createOptions())
 }
