@@ -1,6 +1,6 @@
 import { page, render } from "./lib.js"
 import { homePage } from "./views/home.js"
-// import { catalogPage } from "./views/catalog.js"
+import { catalogPage } from "./views/catalog.js"
 
 // below for debugging in console
 // import * as api from "./api/data.js"
@@ -11,7 +11,7 @@ const root = document.querySelector("main")
 
 page(decorateContext)
 page("/", homePage)
-// page("/memes", catalogPage)
+page("/memes", catalogPage)
 
 // Initiate app
 page.start()
