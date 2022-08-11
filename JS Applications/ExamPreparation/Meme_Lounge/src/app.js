@@ -7,6 +7,7 @@ import { registerPage } from "./views/register.js"
 import { createPage } from "./views/create.js"
 import { editPage } from "./views/edit.js"
 import { detailsPage } from "./views/details.js"
+import { profilePage } from "./views/profile.js"
 import { logout } from "./api/api.js"
 
 const root = document.querySelector("main")
@@ -18,6 +19,7 @@ page("/memes", catalogPage)
 page("/details/:id", detailsPage)
 page("/login", loginPage)
 page("/register", registerPage)
+page("/profile", profilePage)
 page("/create", createPage)
 page("/edit/:id", editPage)
 
