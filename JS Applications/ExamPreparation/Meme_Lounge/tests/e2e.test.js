@@ -1,10 +1,10 @@
-const { chromium } = require("playwright-chromium")
-const { expect } = require("chai")
+import { chromium } from "playwright-chromium"
+import { expect } from "chai"
 
 const host = "http://localhost:3000" // Application host (NOT service host - that can be anything)
 const DEBUG = false
 
-const mockData = require("./mock-data.json")
+import mockData from "./mock-data.json"
 const endpoints = {
   register: "/users/register",
   login: "/users/login",

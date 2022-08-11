@@ -14,13 +14,7 @@ const registerTemplate = (onSubmit) => html` <section id="register">
         name="username"
       />
       <label for="email">Email</label>
-      <input
-        id="email"
-        type="text"
-        placeholder="Enter Email"
-        name="
-      "
-      />
+      <input id="email" type="text" placeholder="Enter Email" name="email" />
       <label for="password">Password</label>
       <input
         id="password"

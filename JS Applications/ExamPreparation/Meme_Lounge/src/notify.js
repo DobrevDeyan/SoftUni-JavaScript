@@ -10,4 +10,4 @@ export function notify(msg) {
   }, 3000)
 }
 
-window.notify = notify
+// window.notify = notify
