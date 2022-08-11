@@ -1,7 +1,7 @@
 import { html } from "../lib.js"
 import { login } from "../api/data.js"
 
-const loginTemplate = () => html` <section id="login">
+const loginTemplate = (onSubmit) => html` <section id="login">
   <form @submit=${onSubmit} id="login-form">
     <div class="container">
       <h1>Login</h1>
@@ -33,6 +33,7 @@ export function loginPage(ctx) {
     const password = formData.get("password").trim()
 
     await login(email, password)
+    ctx.updateUserNav()
     ctx.page.redirect("/memes")
   }
 }

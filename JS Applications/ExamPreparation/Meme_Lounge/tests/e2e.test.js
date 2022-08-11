@@ -256,7 +256,7 @@ describe("E2E tests", function () {
     })
   })
 
-  describe("Catalog [ 25 Points ]", () => {
+  describe.only("Catalog [ 25 Points ]", () => {
     it("loads static home page [ 5 Points ]", async () => {
       await page.goto(host)
 
@@ -268,7 +268,7 @@ describe("E2E tests", function () {
       expect(await page.isVisible("#button-div >> text=Register")).to.be.true
     })
 
-    it.only("show most recent memes [ 10 Points ]", async () => {
+    it("show most recent memes [ 10 Points ]", async () => {
       await page.goto(host)
       await page.click("text=All Memes")
       await page.waitForTimeout(300)
@@ -331,7 +331,7 @@ describe("E2E tests", function () {
     })
   })
 
-  describe("CRUD [ 40 Points ]", () => {
+  describe.only("CRUD [ 40 Points ]", () => {
     const email = "ivan@mail.bg"
     const password = "345321"
 
@@ -578,7 +578,7 @@ describe("E2E tests", function () {
     })
   })
 
-  describe("User Profile Page [ 10 Points ]", async () => {
+  describe.only("User Profile Page [ 10 Points ]", async () => {
     const email = "merry@mail.bg"
     const username = "Merry"
     const password = "123456"
@@ -672,7 +672,7 @@ describe("E2E tests", function () {
     })
   })
 
-  describe("BONUS: Notifications [ 5 Points ]", () => {
+  describe.only("BONUS: Notifications [ 5 Points ]", () => {
     it("Login notification with invalid data", async () => {
       const endpoint = "**" + endpoints.login
       let called = false

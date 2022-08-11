@@ -76,7 +76,7 @@ export async function register(username, email, password, gender) {
   })
   const userData = {
     username: result.username,
-    email: result.username,
+    email: result.email,
     id: result._id,
     gender: result.gender,
     token: result.accessToken,
@@ -85,6 +85,6 @@ export async function register(username, email, password, gender) {
   return result
 }
 export async function logout() {
-  await get("/users/logout")
+  get("/users/logout")
   clearUserData()
 }
