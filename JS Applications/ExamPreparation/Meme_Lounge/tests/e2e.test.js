@@ -268,7 +268,7 @@ describe("E2E tests", function () {
       expect(await page.isVisible("#button-div >> text=Register")).to.be.true
     })
 
-    it("show most recent memes [ 10 Points ]", async () => {
+    it.only("show most recent memes [ 10 Points ]", async () => {
       await page.goto(host)
       await page.click("text=All Memes")
       await page.waitForTimeout(300)

@@ -7,6 +7,7 @@ const root = document.querySelector("main")
 page(decorateContext)
 page("/", homePage)
 page("/memes", catalogPage)
+page("/login", loginPage)
 
 // Initiate app
 page.start()
