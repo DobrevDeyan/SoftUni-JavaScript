@@ -36,6 +36,7 @@ function decorateContext(ctx, next) {
 function onLogout() {
   logout()
   updateUserNav()
+  page.redirect("/")
 }
 function updateUserNav() {
   const userData = getUserData()

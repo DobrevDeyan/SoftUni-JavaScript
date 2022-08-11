@@ -1,5 +1,6 @@
 import { html } from "../lib.js"
 import { register } from "../api/data.js"
+import { notify } from "../notify.js"
 
 const registerTemplate = (onSubmit) => html` <section id="register">
   <form @submit=${onSubmit} id="register-form">
@@ -61,10 +62,10 @@ export function registerPage(ctx) {
     const gender = formData.get("gender")
 
     if (username === "" || email === "" || password === "" || gender === "") {
-      return alert("All fields are required")
+      return notify("All fields are required")
     }
     if (password !== repass) {
-      return alert("Passwords do not match")
+      return notify("Passwords do not match")
     }
 
     await register(username, email, password, gender)

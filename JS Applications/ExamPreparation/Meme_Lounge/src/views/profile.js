@@ -5,11 +5,15 @@ import { html } from "../lib.js"
 const profileTemplate = (memes, user) => html`
   <section id="user-profile-page" class="user-profile">
     <article class="user-info">
-      <img id="user-avatar-url" alt="user-profile" src="./images/female.png" />
+      <img
+        id="user-avatar-url"
+        alt="user-profile"
+        src="./images/${user.gender}.png"
+      />
       <div class="user-content">
-        <p>Username: Mary</p>
-        <p>Email: mary@abv.bg</p>
-        <p>My memes count: 2</p>
+        <p>Username: ${user.username}</p>
+        <p>Email: ${user.email}</p>
+        <p>My memes count: ${memes.length}</p>
       </div>
     </article>
     <h1 id="user-listings-title">User Memes</h1>
@@ -30,6 +34,7 @@ const memeCard = (meme) => html`
 
 export async function profilePage(ctx) {
   const userData = getUserData()
+  console.log(userData)
   const memes = await getMyMemes(userData.id)
   ctx.render(profileTemplate(memes, userData))
 }

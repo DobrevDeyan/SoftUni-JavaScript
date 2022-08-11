@@ -1,4 +1,5 @@
 import { getUserData, setUserData, clearUserData } from "../util.js"
+import { notify } from "../notify.js"
 
 const hostname = "http://localhost:3030"
 
@@ -21,7 +22,8 @@ async function request(url, options) {
       return response
     }
   } catch (err) {
-    alert(err.message)
+    // alert(err.message)
+    notify(err.message)
     throw err
   }
 }
@@ -59,7 +61,7 @@ export async function login(email, password) {
   const result = await post("/users/login", { email, password })
   const userData = {
     username: result.username,
-    email: result.username,
+    email: result.email,
     id: result._id,
     gender: result.gender,
     token: result.accessToken,
