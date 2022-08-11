@@ -5,6 +5,7 @@ import { catalogPage } from "./views/catalog.js"
 import { loginPage } from "./views/login.js"
 import { registerPage } from "./views/register.js"
 import { createPage } from "./views/create.js"
+import { editPage } from "./views/edit.js"
 import { detailsPage } from "./views/details.js"
 import { logout } from "./api/api.js"
 
@@ -18,6 +19,7 @@ page("/details/:id", detailsPage)
 page("/login", loginPage)
 page("/register", registerPage)
 page("/create", createPage)
+page("/edit/:id", editPage)
 
 // Initiate app
 updateUserNav()
