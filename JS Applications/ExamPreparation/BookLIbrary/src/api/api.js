@@ -9,20 +9,19 @@ async function request(url, options) {
       const error = await response.json()
       throw new Error(error.message)
     }
-    // if (response.status === 204) {
-    //   return response
-    // } else {
-    //   return response.json()
-    // }
-    // if (response.status === 403) {} // Check
-    try {
-      return await response.json()
-    } catch (err) {
+    if (response.status === 204) {
       return response
+    } else {
+      return response.json()
     }
+    // if (response.status === 403) {} // Check
+    // try {
+    //   return await response.json()
+    // } catch (err) {
+    //   return response
+    // }
   } catch (err) {
-    // alert(err.message)
-    notify(err.message)
+    alert(err.message)
     throw err
   }
 }
@@ -59,27 +58,21 @@ export async function del(url) {
 export async function login(email, password) {
   const result = await post("/users/login", { email, password })
   const userData = {
-    username: result.username,
     email: result.email,
     id: result._id,
-    gender: result.gender,
     token: result.accessToken,
   }
   setUserData(userData)
   return result
 }
-export async function register(username, email, password, gender) {
+export async function register(email, password) {
   const result = await post("/users/register", {
-    username,
     email,
     password,
-    gender,
   })
   const userData = {
-    username: result.username,
     email: result.email,
     id: result._id,
-    gender: result.gender,
     token: result.accessToken,
   }
   setUserData(userData)
