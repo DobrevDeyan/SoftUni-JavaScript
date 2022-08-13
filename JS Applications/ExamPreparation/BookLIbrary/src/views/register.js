@@ -52,7 +52,7 @@ export function registerPage(ctx) {
     const password = formData.get("password").trim()
     const repass = formData.get("confirm-pass").trim()
 
-    if (email === "" || password === "") {
+    if (email === "" || password === "" || repass === "") {
       return alert("All fields are required")
     }
     if (password !== repass) {
@@ -61,6 +61,6 @@ export function registerPage(ctx) {
 
     await register(email, password)
     ctx.updateUserNav()
-    ctx.page.redirect("/dashboard")
+    ctx.page.redirect("/")
   }
 }

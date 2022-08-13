@@ -46,6 +46,6 @@ export function loginPage(ctx) {
 
     await login(email, password)
     ctx.updateUserNav()
-    ctx.page.redirect("/dashboard")
+    ctx.page.redirect("/")
   }
 }
