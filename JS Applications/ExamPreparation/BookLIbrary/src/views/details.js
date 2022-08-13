@@ -1,12 +1,21 @@
 import { html } from "../lib.js"
-import { getBookById } from "../api/data.js"
-import { deleteBook } from "../api/data.js"
+import {
+  getBookById,
+  deleteBook,
+  getLikesByBookId,
+  getMyLikeByBookId,
+  likeBook,
+} from "../api/data.js"
 import { getUserData } from "../util.js"
 
-const detailsTemplate = (book, isOwner, onDelete) => html`<section
-  id="details-page"
-  class="details"
->
+const detailsTemplate = (
+  book,
+  isOwner,
+  onDelete,
+  likes,
+  showLikeButton,
+  onLike
+) => html`<section id="details-page" class="details">
   <div class="book-information">
     <h3>${book.title}</h3>
     <p class="type">Type: ${book.type}</p>
@@ -14,19 +23,15 @@ const detailsTemplate = (book, isOwner, onDelete) => html`<section
     <div class="actions">
       <!-- Edit/Delete buttons ( Only for creator of this book )  -->
 
-      ${isOwner
-        ? html`<a class="button" href="/edit/${book._id}">Edit</a>
-            <a @click=${onDelete} class="button" href="/">Delete</a>`
-        : null}
+      ${bookControlsTemplate(book, isOwner, onDelete)}
 
       <!-- Bonus -->
       <!-- Like button ( Only for logged-in users, which is not creators of the current book ) -->
-      <a class="button" href="#">Like</a>
-
+      ${likeControlTemplate(showLikeButton, onLike)}
       <!-- ( for Guests and Users )  -->
       <div class="likes">
         <img class="hearts" src="/images/heart.png" />
-        <span id="total-likes">Likes: 0</span>
+        <span id="total-likes">Likes: ${likes}</span>
       </div>
       <!-- Bonus -->
     </div>
@@ -37,13 +42,44 @@ const detailsTemplate = (book, isOwner, onDelete) => html`<section
   </div>
 </section>`
 
+const likeControlTemplate = (showLikeButton, onLike) => {
+  if (showLikeButton) {
+    return html`<a @click=${onLike} class="button" href="javascript:void(0)"
+      >Like</a
+    >`
+  } else {
+    return null
+  }
+}
+const bookControlsTemplate = (book, isOwner, onDelete) => {
+  if (isOwner) {
+    return html`
+      <a class="button" href="/edit/${book._id}">Edit</a>
+      <a @click=${onDelete} class="button" href="/">Delete</a>
+    `
+  } else {
+    return null
+  }
+}
+
 export async function detailsPage(ctx) {
-  const book = await getBookById(ctx.params.id)
-
+  // const book = await getBookById(ctx.params.id)
   const userData = getUserData()
-  const isOwner = userData && book._ownerId == userData.id
 
-  ctx.render(detailsTemplate(book, isOwner, onDelete))
+  const [book, likes, hasLike] = await Promise.all([
+    getBookById(ctx.params.id),
+    getLikesByBookId(ctx.params.id),
+    userData ? getMyLikeByBookId(ctx.params.id, userData.id) : 0,
+  ])
+
+  const isOwner = userData && userData.id == book._ownerId
+
+  const showLikeButton =
+    userData != null && isOwner == false && hasLike == false
+
+  ctx.render(
+    detailsTemplate(book, isOwner, onDelete, likes, showLikeButton, onLike)
+  )
 
   async function onDelete(event) {
     const choice = confirm(
@@ -54,4 +90,14 @@ export async function detailsPage(ctx) {
       ctx.page.redirect("/")
     }
   }
+
+  async function onLike(event) {
+    await likeBook(ctx.params.id)
+    ctx.page.redirect("/details/" + ctx.params.id)
+  }
 }
+
+// ${isOwner
+//   ? html`<a class="button" href="/edit/${book._id}">Edit</a>
+//       <a @click=${onDelete} class="button" href="/">Delete</a>`
+//   : null}

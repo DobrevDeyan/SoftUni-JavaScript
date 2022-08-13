@@ -52,7 +52,6 @@ const editTemplate = (book, onSubmit) => html`
 `
 export async function editPage(ctx) {
   const book = await getBookById(ctx.params.id)
-
   ctx.render(editTemplate(book, onSubmit))
 
   async function onSubmit(event) {
