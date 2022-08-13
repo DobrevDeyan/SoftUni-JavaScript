@@ -9,7 +9,7 @@ import { registerPage } from "./views/register.js"
 import { detailsPage } from "./views/details.js"
 import { createPage } from "./views/create.js"
 import { editPage } from "./views/edit.js"
-// import { profilePage } from "./views/profile.js"
+import { booksPage } from "./views/books.js"
 
 const root = document.getElementById("site-content")
 document.getElementById("logoutButton").addEventListener("click", onLogout)
@@ -21,7 +21,7 @@ page("/register", registerPage)
 page("/details/:id", detailsPage)
 page("/create", createPage)
 page("/edit/:id", editPage)
-// page("/profile", profilePage)
+page("/books", booksPage)
 
 // Initiate app
 updateUserNav()
