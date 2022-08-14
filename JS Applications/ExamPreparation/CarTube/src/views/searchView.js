@@ -46,9 +46,9 @@ export async function searchViewPage(ctx) {
   let currentSearch = ""
 
   const onSearchChange = (event) => {
-    currentSearch = event.target.value
+    currentSearch = Number(event.target.value)
   }
-  const onSearchClick = (event) => {
+  const onSearchClick = () => {
     let year = Number(currentSearch)
 
     getListingByYear(year).then((listings) => {

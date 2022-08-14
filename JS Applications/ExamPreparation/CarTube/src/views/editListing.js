@@ -1,5 +1,6 @@
 import { getListingById, editListing } from "../api/data.js"
 import { html } from "../lib.js"
+import { getUserData } from "../util.js"
 
 const editListingTemplate = (listing, onSubmit) => html`
   <section id="edit-listing">
@@ -65,7 +66,10 @@ const editListingTemplate = (listing, onSubmit) => html`
 `
 export async function editListingPage(ctx) {
   const listing = await getListingById(ctx.params.id)
-  ctx.render(editListingTemplate(listing, onSubmit))
+  const userData = getUserData()
+  const isOwner = userData && listing._ownerId == userData.id
+
+  ctx.render(editListingTemplate(listing, onSubmit, isOwner))
 
   async function onSubmit(event) {
     event.preventDefault()
@@ -75,9 +79,9 @@ export async function editListingPage(ctx) {
     const brand = formData.get("brand").trim()
     const model = formData.get("model").trim()
     const description = formData.get("description").trim()
-    const year = formData.get("year").trim()
+    const year = Number(formData.get("year").trim())
     const imageUrl = formData.get("imageUrl").trim()
-    const price = formData.get("price").trim()
+    const price = Number(formData.get("price").trim())
 
     const listing = { brand, model, description, year, imageUrl, price }
 

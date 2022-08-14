@@ -16,7 +16,7 @@ const loginTemplate = (onSubmit) => html` <section id="login">
       <input type="submit" class="registerbtn" value="Login" />
     </form>
     <div class="signin">
-      <p>Dont have an account? <a href="#">Sign up</a>.</p>
+      <p>Dont have an account? <a href="/register">Sign up</a>.</p>
     </div>
   </div>
 </section>`
