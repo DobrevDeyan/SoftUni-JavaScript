@@ -22,4 +22,3 @@ export async function editShoe(id, shoe) {
 export async function getShoeByBrand(brand) {
   return api.get(`/data/shoes?where=brand%20LIKE%20%22${brand}%22`)
 }
-window.getShoeByBrand = getShoeByBrand

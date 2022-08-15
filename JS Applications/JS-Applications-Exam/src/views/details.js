@@ -2,7 +2,7 @@ import { html } from "../lib.js"
 import { getShoeById, deleteShoe } from "../api/data.js"
 import { getUserData } from "../util.js"
 
-const detailsTemplate = (shoe, isOwner, onDelete) => html` <section
+const detailsTemplate = (shoe, isOwner, model, ctx) => html` <section
   id="details"
 >
   <div id="details-wrapper">
@@ -23,7 +23,12 @@ const detailsTemplate = (shoe, isOwner, onDelete) => html` <section
       ${isOwner
         ? html`
             <a href="/edit/${shoe._id}" id="edit-btn">Edit</a>
-            <a @click=${onDelete} href="/" id="delete-btn">Delete</a>
+            <a
+              href="javascript:void(0)"
+              @click=${(e) => model.deleteHand(model.shoe._id, e, ctx)}
+              id="delete-btn"
+              >Delete</a
+            >
           `
         : null}
     </div>
@@ -34,20 +39,17 @@ export async function detailsPage(ctx) {
   const shoe = await getShoeById(ctx.params.id)
 
   const userData = getUserData()
-  console.log(shoe)
-  console.log(userData)
-  console.log(shoe._ownerId)
-  console.log(userData.id)
   const isOwner = userData && shoe._ownerId === userData.id
-  console.log(isOwner)
 
-  ctx.render(detailsTemplate(shoe, isOwner, onDelete))
-
-  async function onDelete(event) {
-    const choice = confirm("Are you sure you want to delete this shoe ?")
-    if (choice) {
-      await deleteShoe(ctx.params.id)
-      ctx.page.redirect("/dashboard")
-    }
+  let model = {
+    shoe,
+    deleteHand,
   }
+
+  ctx.render(detailsTemplate(shoe, isOwner, model, ctx))
+}
+
+async function deleteHand(id, e, ctx) {
+  await deleteShoe(id)
+  ctx.page.redirect("/dashboard")
 }

@@ -1,7 +1,7 @@
 import { getShoeByBrand } from "../api/data.js"
 import { html } from "../lib.js"
 
-const searchTemplate = (onSearch, shoes, brand) => html`
+const searchTemplate = (onChange, onSearch, shoes = []) => html`
   <section id="search">
     <h2>Search by Brand</h2>
 
@@ -12,7 +12,7 @@ const searchTemplate = (onSearch, shoes, brand) => html`
         name="search"
         placeholder="Search here..."
         required
-        .value=${brand || ""}
+        @input=${onChange}
       />
       <button type="submit" @click=${onSearch}>Search</button>
     </form>
@@ -22,7 +22,7 @@ const searchTemplate = (onSearch, shoes, brand) => html`
     <div id="search-container">
       <!-- <ul class="card-wrapper"> -->
       <!-- Display a li with information about every post (if any)-->
-      ${shoes.length !== 0
+      ${shoes.length == 0
         ? html`<h2>There are no results found.</h2> `
         : html` <ul class="card-wrapper">
             ${shoes.map(shoeTemplate)}
@@ -44,31 +44,19 @@ const shoeTemplate = (shoe) => html`
   </li>
 `
 
-// export async function searchPage(ctx) {
-//   let currentSearch = ""
-
-//   const onSearchChange = (event) => {
-//     currentSearch = event.target.value
-//   }
-//   const onSearchClick = () => {
-//     let brand = String(currentSearch).trim()
-
-//     getShoeByBrand(brand).then((shoes) => {
-//       ctx.render(searchTemplate(onSearchChange, onSearchClick, shoes))
-//     })
-//   }
-//   ctx.render(searchTemplate(onSearchChange, onSearchClick))
-// }
-
 export async function searchPage(ctx) {
-  const brand = ctx.querystring.split("=")[1]
-  const shoes = brand ? [] : await getShoeByBrand(brand)
+  let currentSearch = ""
 
-  ctx.render(searchTemplate(onSearch, shoes, brand))
-
-  async function onSearch() {
-    const query = Number(document.querySelector("input[type=text]").value)
-
-    ctx.page.redirect(`search?query=${query}`)
+  const onSearchChange = (event) => {
+    currentSearch = event.target.value
   }
+  const onSearchClick = () => {
+    let brand = currentSearch
+
+    getShoeByBrand(brand).then((shoes) => {
+      ctx.render(searchTemplate(onSearchChange, onSearchClick, shoes))
+    })
+  }
+
+  ctx.render(searchTemplate(onSearchChange, onSearchClick))
 }
