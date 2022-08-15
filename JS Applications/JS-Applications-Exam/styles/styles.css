@@ -1,0 +1,9 @@
+@import "navigation.css";
+@import "form.css";
+@import "dashboard.css";
+@import "details.css";
+@import "search.css";
+
+.hidden {
+  display: none;
+}
