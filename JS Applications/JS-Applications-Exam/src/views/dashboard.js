@@ -24,5 +24,7 @@ const shoeTemplate = (shoe) => html`
 `
 export async function dashboardPage(ctx) {
   const shoes = await getAllShoes()
+  console.log(shoes);
+  // console.log(shoes[1]);
   ctx.render(dashboardTemplate(shoes))
 }
