@@ -1,0 +1,17 @@
+body {
+  background-color: #e4e978;
+  padding: 15px;
+}
+
+article {
+  padding: 10px;
+  background-color: #f2f4c0;
+  border: 1px solid #b2ad7d;
+  margin-bottom: 15px;
+}
+section article:last-child {
+  margin-bottom: 0;
+}
+section article {
+  font-style: italic;
+}
